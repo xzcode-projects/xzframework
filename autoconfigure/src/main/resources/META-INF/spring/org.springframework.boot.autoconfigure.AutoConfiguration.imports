@@ -1,0 +1,2 @@
+com.xzframework.boot.autoconfigure.data.XzSpringDataWebConfiguration
+com.xzframework.boot.autoconfigure.data.XzReactiveSpringDataWebConfiguration

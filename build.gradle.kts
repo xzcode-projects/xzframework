@@ -3,6 +3,5 @@ plugins {
 }
 
 allprojects {
-    group = "org.xzframework"
     version = "3.1.0-SNAPSHOT"
 }

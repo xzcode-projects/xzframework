@@ -1,0 +1,37 @@
+package com.xzframework.boot.autoconfigure.data;
+
+import org.springframework.boot.autoconfigure.AutoConfigureBefore;
+import org.springframework.boot.autoconfigure.orm.jpa.JpaBaseConfiguration;
+import org.springframework.context.annotation.Import;
+import org.springframework.core.annotation.AliasFor;
+
+import java.lang.annotation.*;
+
+@Target(ElementType.TYPE)
+@Retention(RetentionPolicy.RUNTIME)
+@Documented
+@AutoConfigureBefore(JpaBaseConfiguration.class)
+@Import(XzEntityScannerRegistrar.class)
+public @interface XzEntityScan {
+
+    /**
+     * Alias for the {@link #basePackages()} attribute. Allows for more concise annotation
+     * declarations e.g.: {@code @EntityScan("org.my.pkg")} instead of
+     * {@code @EntityScan(basePackages="org.my.pkg")}.
+     *
+     * @return the base packages to scan
+     */
+    @AliasFor("basePackages")
+    String[] value() default {};
+
+    /**
+     * Base packages to scan for entities. {@link #value()} is an alias for (and mutually
+     * exclusive with) this attribute.
+     * <p>
+     * package names.
+     *
+     * @return the base packages to scan
+     */
+    @AliasFor("value")
+    String[] basePackages() default {};
+}

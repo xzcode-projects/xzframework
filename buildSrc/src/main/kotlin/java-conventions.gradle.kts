@@ -22,11 +22,16 @@ tasks.withType<Test> {
     useJUnitPlatform()
 }
 
+java {
+    withSourcesJar()
+}
+
 dependencies {
     implementation(platform("commons-io:commons-io:${Versions.commons_io}"))
     implementation(platform("org.apache.commons:commons-collections4:${Versions.commonCollections4}"))
     implementation(platform(org.springframework.boot.gradle.plugin.SpringBootPlugin.BOM_COORDINATES))
 }
+
 publishing {
     publications.create<MavenPublication>("maven") {
         from(components["java"])
@@ -38,7 +43,14 @@ publishing {
                 fromResolutionResult()
             }
         }
+
+        pom.withXml {
+            val root = asNode()
+            val list = root["dependencyManagement"] as groovy.util.NodeList
+            list.forEach { root.remove(it as groovy.util.Node) }
+        }
     }
+
     repositories {
         // 发布到自己的maven私有仓库
         maven {
