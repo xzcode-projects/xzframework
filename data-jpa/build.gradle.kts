@@ -1,6 +1,7 @@
 group = "org.xzframework.data"
 plugins {
     id("java-conventions")
+    kotlin("jvm")
 }
 dependencies {
     compileOnly("jakarta.persistence:jakarta.persistence-api")

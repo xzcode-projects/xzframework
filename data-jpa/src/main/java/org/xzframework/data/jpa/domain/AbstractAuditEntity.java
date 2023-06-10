@@ -7,6 +7,7 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.io.Serializable;
 import java.time.ZonedDateTime;
+import java.util.Optional;
 
 @MappedSuperclass
 @EntityListeners(AuditingEntityListener.class)
@@ -60,8 +61,8 @@ public abstract class AbstractAuditEntity<UID extends Serializable, UNAME extend
         return lastModifiedTime;
     }
 
-    public Auditor<UID, UNAME> getCreatedBy() {
-        return createdBy;
+    public Optional<Auditor<UID, UNAME>> getCreatedBy() {
+        return Optional.ofNullable(createdBy);
     }
 
     @CreatedBy
@@ -69,8 +70,8 @@ public abstract class AbstractAuditEntity<UID extends Serializable, UNAME extend
         this.createdBy = createdBy;
     }
 
-    public Auditor<UID, UNAME> getLastModifiedBy() {
-        return lastModifiedBy;
+    public Optional<Auditor<UID, UNAME>> getLastModifiedBy() {
+        return Optional.ofNullable(lastModifiedBy);
     }
 
     @LastModifiedBy
