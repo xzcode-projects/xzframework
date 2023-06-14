@@ -1,4 +1,4 @@
-group = "org.xzframework.wx"
+group = "org.xzframework.security"
 plugins {
     id("java-conventions")
     `java-library`
