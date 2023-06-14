@@ -4,9 +4,11 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.http.MediaType;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.authentication.AbstractAuthenticationProcessingFilter;
+import org.springframework.security.web.util.matcher.MediaTypeRequestMatcher;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import java.io.IOException;
@@ -14,18 +16,25 @@ import java.util.function.Function;
 import java.util.function.Supplier;
 
 public class WxCodeAuthenticationProcessingFilter extends AbstractAuthenticationProcessingFilter {
-    private final Function<HttpServletRequest, String> redirectUrlBuilder = request -> {
-        String scheme = request.getScheme();
-        String host = request.getHeader("host");
-        return scheme + "://" + host + request.getServletPath();
-    };
+    private final Function<HttpServletRequest, String> redirectUrlBuilder;
     private final Supplier<String> appidResolver;
-
     private final WxOAuth2StateRepository stateRepository = new SessionWxOAuth2StateRepository();
+    MediaTypeRequestMatcher jsonRequestMatcher = new MediaTypeRequestMatcher(MediaType.APPLICATION_JSON);
 
-    public WxCodeAuthenticationProcessingFilter(Supplier<String> appidResolver) {
+
+    public WxCodeAuthenticationProcessingFilter(Supplier<String> appidResolver, Function<HttpServletRequest, String> redirectUrlBuilder) {
         super("/login/wx/code");
         this.appidResolver = appidResolver;
+        this.redirectUrlBuilder = redirectUrlBuilder;
+    }
+
+
+    public WxCodeAuthenticationProcessingFilter(Supplier<String> appidResolver) {
+        this(appidResolver, request -> {
+            String scheme = request.getScheme();
+            String host = request.getHeader("host");
+            return scheme + "://" + host + request.getServletPath();
+        });
     }
 
 
@@ -35,7 +44,12 @@ public class WxCodeAuthenticationProcessingFilter extends AbstractAuthentication
         String code = request.getParameter("code");
         String state = request.getParameter("state");
         if (StringUtils.isBlank(code)) {
-            response.sendRedirect(buildRedirect(request));
+            if (jsonRequestMatcher.matches(request)) {
+                response.setContentType("application/json");
+                response.getWriter().println("{\"url\":\"" + buildRedirect(request) + "\"}");
+            } else {
+                response.sendRedirect(buildRedirect(request));
+            }
             return null;
         }
         String savedState = stateRepository.get(request);

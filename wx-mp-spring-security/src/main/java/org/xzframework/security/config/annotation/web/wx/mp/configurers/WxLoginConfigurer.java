@@ -1,5 +1,6 @@
 package org.xzframework.security.config.annotation.web.wx.mp.configurers;
 
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.context.ApplicationContext;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.web.HttpSecurityBuilder;
@@ -18,6 +19,7 @@ import org.xzframework.security.web.wx.mp.oauth2.authentication.WxOauth2AccessTo
 import org.xzframework.security.web.wx.mp.oauth2.authentication.WxOauth2AuthenticationProvider;
 
 import java.util.Objects;
+import java.util.function.Function;
 import java.util.function.Supplier;
 
 public class WxLoginConfigurer<H extends HttpSecurityBuilder<H>> extends
@@ -28,6 +30,8 @@ public class WxLoginConfigurer<H extends HttpSecurityBuilder<H>> extends
     private AuthenticationUserDetailsService<WxOauth2AccessTokenAuthenticationToken> authenticationUserDetailsService;
     private Supplier<String> appidResolver;
 
+    private Function<HttpServletRequest, String> redirectUrlBuilder;
+
 
     public WxLoginConfigurer() {
     }
@@ -35,6 +39,11 @@ public class WxLoginConfigurer<H extends HttpSecurityBuilder<H>> extends
 
     public WxLoginConfigurer<H> appidResolver(Supplier<String> appidResolver) {
         this.appidResolver = appidResolver;
+        return this;
+    }
+
+    public WxLoginConfigurer<H> redirectUrlBuilder(Function<HttpServletRequest, String> redirectUrlBuilder) {
+        this.redirectUrlBuilder = redirectUrlBuilder;
         return this;
     }
 
@@ -59,7 +68,12 @@ public class WxLoginConfigurer<H extends HttpSecurityBuilder<H>> extends
 
     @Override
     public void init(H http) throws Exception {
-        setAuthenticationFilter(new WxCodeAuthenticationProcessingFilter(appidResolver));
+        if (Objects.nonNull(redirectUrlBuilder)) {
+            setAuthenticationFilter(new WxCodeAuthenticationProcessingFilter(appidResolver, redirectUrlBuilder));
+        } else {
+            setAuthenticationFilter(new WxCodeAuthenticationProcessingFilter(appidResolver));
+        }
+
     }
 
     @Override
@@ -79,7 +93,7 @@ public class WxLoginConfigurer<H extends HttpSecurityBuilder<H>> extends
         WxCodeAuthenticationProcessingFilter authFilter = getAuthenticationFilter();
         authFilter.setAuthenticationManager(http.getSharedObject(AuthenticationManager.class));
 
-        if (Objects.nonNull(authenticationFailureHandler)) {
+        if (Objects.nonNull(authenticationSuccessHandler)) {
             authFilter.setAuthenticationSuccessHandler(authenticationSuccessHandler);
         }
         if (Objects.nonNull(authenticationFailureHandler)) {
