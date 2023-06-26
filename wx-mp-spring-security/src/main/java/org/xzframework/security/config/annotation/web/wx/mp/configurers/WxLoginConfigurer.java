@@ -34,6 +34,7 @@ public class WxLoginConfigurer<H extends HttpSecurityBuilder<H>> extends
 
 
     public WxLoginConfigurer() {
+        super(new WxCodeAuthenticationProcessingFilter(), "/login/wx/code");
     }
 
 
@@ -67,13 +68,12 @@ public class WxLoginConfigurer<H extends HttpSecurityBuilder<H>> extends
 
 
     @Override
-    public void init(H http) throws Exception {
+    public void init(H http) {
+        WxCodeAuthenticationProcessingFilter authFilter = getAuthenticationFilter();
+        authFilter.setAppidResolver(appidResolver);
         if (Objects.nonNull(redirectUrlBuilder)) {
-            setAuthenticationFilter(new WxCodeAuthenticationProcessingFilter(appidResolver, redirectUrlBuilder));
-        } else {
-            setAuthenticationFilter(new WxCodeAuthenticationProcessingFilter(appidResolver));
+            authFilter.setRedirectUrlBuilder(redirectUrlBuilder);
         }
-
     }
 
     @Override

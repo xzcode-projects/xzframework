@@ -11,5 +11,5 @@ repositories {
 
 dependencies {
     implementation(kotlin("script-runtime"))
-    implementation("org.springframework.boot:spring-boot-gradle-plugin:3.1.0")
+    implementation("org.springframework.boot:spring-boot-gradle-plugin:3.1.1")
 }

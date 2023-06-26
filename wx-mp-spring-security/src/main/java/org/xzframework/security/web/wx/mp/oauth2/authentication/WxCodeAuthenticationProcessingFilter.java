@@ -16,10 +16,10 @@ import java.util.function.Function;
 import java.util.function.Supplier;
 
 public class WxCodeAuthenticationProcessingFilter extends AbstractAuthenticationProcessingFilter {
-    private final Function<HttpServletRequest, String> redirectUrlBuilder;
-    private final Supplier<String> appidResolver;
     private final WxOAuth2StateRepository stateRepository = new SessionWxOAuth2StateRepository();
-    MediaTypeRequestMatcher jsonRequestMatcher = new MediaTypeRequestMatcher(MediaType.APPLICATION_JSON);
+    private final MediaTypeRequestMatcher jsonRequestMatcher = new MediaTypeRequestMatcher(MediaType.APPLICATION_JSON);
+    private Function<HttpServletRequest, String> redirectUrlBuilder;
+    private Supplier<String> appidResolver;
 
 
     public WxCodeAuthenticationProcessingFilter(Supplier<String> appidResolver, Function<HttpServletRequest, String> redirectUrlBuilder) {
@@ -37,6 +37,17 @@ public class WxCodeAuthenticationProcessingFilter extends AbstractAuthentication
         });
     }
 
+    public WxCodeAuthenticationProcessingFilter() {
+        this(() -> "");
+    }
+
+    public void setAppidResolver(Supplier<String> appidResolver) {
+        this.appidResolver = appidResolver;
+    }
+
+    public void setRedirectUrlBuilder(Function<HttpServletRequest, String> redirectUrlBuilder) {
+        this.redirectUrlBuilder = redirectUrlBuilder;
+    }
 
     @Override
     public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response)

@@ -15,6 +15,19 @@ public class InMemoryDeviceVerificationCodeStorage implements DeviceVerification
     // 以设备识别符为key的验证码map
     private final Map<String, Set<DeviceVerificationCode>> keyMap = new ConcurrentHashMap<>();
 
+    private final Timer timer = new Timer(true);
+
+
+    public InMemoryDeviceVerificationCodeStorage() {
+        // 每5分钟执行一次内存清理
+        timer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                clean();
+            }
+        }, 1000 * 60 * 5, 1000 * 60 * 5);
+    }
+
     @Override
     public DeviceVerificationCode save(DeviceVerificationCode code) {
         String id = code.getId();
@@ -64,10 +77,9 @@ public class InMemoryDeviceVerificationCodeStorage implements DeviceVerification
     }
 
     /**
-     * 一分钟秒清理一次内存
+     * 清理内存
      */
-//    @Scheduled(fixedRate = 1000 * 60)
-    public synchronized void autoClean() {
+    private void clean() {
         Set<String> keys = idKeyMap.keySet();
         ZonedDateTime now = ZonedDateTime.now();
         keys.forEach(id -> {
