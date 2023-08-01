@@ -5,7 +5,6 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.io.Serial;
 import java.io.Serializable;
 import java.time.ZonedDateTime;
-import java.time.temporal.ChronoUnit;
 import java.util.UUID;
 
 public class DeviceVerificationCode implements Serializable {
@@ -13,8 +12,14 @@ public class DeviceVerificationCode implements Serializable {
     @Serial
     private static final long serialVersionUID = -6060058106901443139L;
 
+    /**
+     * 验证码ID
+     */
     private final String id;
 
+    /**
+     * 验证码设备键
+     */
     private final String key;
 
     private final String code;
@@ -28,7 +33,7 @@ public class DeviceVerificationCode implements Serializable {
     }
 
     public DeviceVerificationCode(String id, String key, String code) {
-        this(id, key, code, ZonedDateTime.now().plus(5, ChronoUnit.MINUTES));
+        this(id, key, code, ZonedDateTime.now().plusMinutes(5));
     }
 
     public DeviceVerificationCode(String id, String key, String code, ZonedDateTime expireAt) {
