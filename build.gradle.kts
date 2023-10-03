@@ -3,5 +3,5 @@ plugins {
 }
 
 allprojects {
-    version = "3.1.3-SNAPSHOT"
+    version = "3.1.4-SNAPSHOT"
 }
