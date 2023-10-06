@@ -18,6 +18,11 @@ public abstract class AbstractEntity implements Persistable<Long> {
     @Column(name = "id_", updatable = false)
     private Long id;
 
+
+    @Version
+    @Column(name = "version_", nullable = false)
+    private final Long version = 0L;
+
     public AbstractEntity() {
     }
 
