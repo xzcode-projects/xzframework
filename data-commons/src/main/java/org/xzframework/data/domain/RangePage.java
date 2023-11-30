@@ -1,9 +1,12 @@
 package org.xzframework.data.domain;
 
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 import java.io.Serializable;
 import java.util.function.Function;
+
+import static java.util.Collections.emptyList;
 
 /**
  * 有限范围内的分页
@@ -15,6 +18,15 @@ import java.util.function.Function;
 public interface RangePage<T, M extends Comparable<?> & Serializable> extends Page<T> {
     static <T, M extends Comparable<?> & Serializable> RangePage<T, M> of(M max, Page<T> page) {
         return new RangePageImpl<>(max, page.getContent(), page.getPageable(), page.getTotalElements());
+    }
+
+    /**
+     * 生成一个空的RangePage
+     *
+     * @param <T> 内容类型
+     */
+    static <T> RangePage<T, Long> empty() {
+        return new RangePageImpl<>(Long.MIN_VALUE, emptyList(), Pageable.unpaged(), 0);
     }
 
     /**
