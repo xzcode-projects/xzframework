@@ -29,7 +29,7 @@ public abstract class AbstractAuditEntity<UID extends Serializable, UNAME extend
             ),
             @AttributeOverride(
                     name = "username",
-                    column = @Column(name = "created_user_name_", updatable = false)
+                    column = @Column(name = "created_user_name_", updatable = false, length = 100)
             )
     })
     private Auditor<UID, UNAME> createdBy;
@@ -41,7 +41,7 @@ public abstract class AbstractAuditEntity<UID extends Serializable, UNAME extend
             ),
             @AttributeOverride(
                     name = "username",
-                    column = @Column(name = "last_modified_user_name_")
+                    column = @Column(name = "last_modified_user_name_", length = 100)
             )
     })
     private Auditor<UID, UNAME> lastModifiedBy;
