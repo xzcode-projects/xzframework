@@ -6,21 +6,12 @@ import org.springframework.data.annotation.LastModifiedBy;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.io.Serializable;
-import java.time.ZonedDateTime;
 import java.util.Optional;
 
 @MappedSuperclass
 @EntityListeners(AuditingEntityListener.class)
 public abstract class AbstractAuditEntity<UID extends Serializable, UNAME extends Serializable> extends AbstractEntity {
 
-    /**
-     * 创建时间 <br></br>
-     * 字段不能被更新
-     */
-    @Column(name = "created_time_", updatable = false, nullable = false)
-    private final ZonedDateTime createdTime = ZonedDateTime.now();
-    @Column(name = "last_modified_time_", nullable = false)
-    private ZonedDateTime lastModifiedTime = ZonedDateTime.now();
     @Embedded
     @AttributeOverrides({
             @AttributeOverride(
@@ -53,14 +44,6 @@ public abstract class AbstractAuditEntity<UID extends Serializable, UNAME extend
         super(id);
     }
 
-    public ZonedDateTime getCreatedTime() {
-        return createdTime;
-    }
-
-    public ZonedDateTime getLastModifiedTime() {
-        return lastModifiedTime;
-    }
-
     public Optional<Auditor<UID, UNAME>> getCreatedBy() {
         return Optional.ofNullable(createdBy);
     }
@@ -79,8 +62,4 @@ public abstract class AbstractAuditEntity<UID extends Serializable, UNAME extend
         this.lastModifiedBy = lastModifiedBy;
     }
 
-    @PreUpdate
-    public final void updateLastModifiedTime() {
-        lastModifiedTime = ZonedDateTime.now();
-    }
 }
