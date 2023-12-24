@@ -8,12 +8,6 @@ plugins {
     `maven-publish`
 }
 
-configurations {
-    compileOnly {
-        extendsFrom(annotationProcessor.get())
-    }
-}
-
 tasks.withType<JavaCompile> {
     options.encoding = "UTF-8"
 }

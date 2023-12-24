@@ -12,3 +12,12 @@ dependencies {
     compileOnly("org.springframework.security:spring-security-web")
     compileOnly("org.springframework.security:spring-security-config")
 }
+
+tasks {
+    java {
+        toolchain {
+            languageVersion = JavaLanguageVersion.of(17)
+            vendor = JvmVendorSpec.ADOPTIUM
+        }
+    }
+}

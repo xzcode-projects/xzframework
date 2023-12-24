@@ -10,3 +10,12 @@ dependencies {
     compileOnly("org.springframework:spring-web")
     implementation("com.fasterxml.jackson.core:jackson-databind")
 }
+
+tasks {
+    java {
+        toolchain {
+            languageVersion = JavaLanguageVersion.of(17)
+            vendor = JvmVendorSpec.ADOPTIUM
+        }
+    }
+}

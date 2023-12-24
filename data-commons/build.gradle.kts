@@ -8,3 +8,12 @@ dependencies {
     compileOnly("org.springframework:spring-web")
     compileOnly("org.springframework:spring-webflux")
 }
+
+tasks {
+    java {
+        toolchain {
+            languageVersion = JavaLanguageVersion.of(17)
+            vendor = JvmVendorSpec.ADOPTIUM
+        }
+    }
+}
