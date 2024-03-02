@@ -13,12 +13,12 @@ public class ErrorResponse {
         this(500);
     }
 
-    public ErrorResponse(int status, String error, String message, String path) {
-        this(status, ZonedDateTime.now(), null, null, null);
+    public ErrorResponse(int status) {
+        this(status, null, null, null);
     }
 
-    public ErrorResponse(int status) {
-        this(status, ZonedDateTime.now(), null, null, null);
+    public ErrorResponse(int status, String error, String message, String path) {
+        this(status, ZonedDateTime.now(), error, message, path);
     }
 
     public ErrorResponse(int status, ZonedDateTime timestamp, String error, String message, String path) {
