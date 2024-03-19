@@ -18,7 +18,7 @@ public class NumberToStringJacksonConfiguration {
         return it -> {
             it.serializerByType(Long.class, ToStringSerializer.instance);
             it.serializerByType(Long.TYPE, ToStringSerializer.instance);
-            it.serializerByType(BigDecimal.class, ToStringSerializer.instance);
+            it.serializerByType(BigDecimal.class, BigDecimalToStripTrailingZeroPlanStringSerializer.instance);
             it.serializerByType(BigInteger.class, ToStringSerializer.instance);
         };
     }
