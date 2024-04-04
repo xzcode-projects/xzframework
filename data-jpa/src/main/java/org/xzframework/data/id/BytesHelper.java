@@ -1,25 +1,8 @@
 package org.xzframework.data.id;
 
-import org.apache.commons.lang3.StringUtils;
-
 public final class BytesHelper {
 
     private BytesHelper() {
-    }
-
-    /**
-     * Custom algorithm used to generate an {@code int} from a series of bytes.
-     *
-     * @param bytes The bytes to use in generating the int.
-     * @return The generated int.
-     * @implNote This is different to interpreting the incoming bytes as an {@code int}!
-     */
-    public static int toInt(byte[] bytes) {
-        int result = 0;
-        for (int i = 0; i < 4; i++) {
-            result = (result << 8) - Byte.MIN_VALUE + (int) bytes[i];
-        }
-        return result;
     }
 
     /**
@@ -48,37 +31,6 @@ public final class BytesHelper {
         bytes[2] = (byte) ((intValue << 16) >> 24);
         bytes[3] = (byte) ((intValue << 24) >> 24);
         return bytes;
-    }
-
-    /**
-     * Interpret a long as its binary form
-     *
-     * @param longValue The long to interpret to binary
-     * @return The binary
-     */
-    public static byte[] fromLong(long longValue) {
-        byte[] bytes = new byte[8];
-        fromLong(longValue, bytes, 0);
-        return bytes;
-    }
-
-    /**
-     * Interpret a long as its binary form
-     *
-     * @param longValue The long to interpret to binary
-     * @param dest      the destination array.
-     * @param destPos   starting position in the destination array.
-     */
-    public static void fromLong(long longValue, byte[] dest, int destPos) {
-
-        dest[destPos] = (byte) (longValue >> 56);
-        dest[destPos + 1] = (byte) ((longValue << 8) >> 56);
-        dest[destPos + 2] = (byte) ((longValue << 16) >> 56);
-        dest[destPos + 3] = (byte) ((longValue << 24) >> 56);
-        dest[destPos + 4] = (byte) ((longValue << 32) >> 56);
-        dest[destPos + 5] = (byte) ((longValue << 40) >> 56);
-        dest[destPos + 6] = (byte) ((longValue << 48) >> 56);
-        dest[destPos + 7] = (byte) ((longValue << 56) >> 56);
     }
 
     /**
@@ -113,27 +65,4 @@ public final class BytesHelper {
         return value;
     }
 
-    public static String toBinaryString(byte value) {
-        String formatted = Integer.toBinaryString(value);
-        if (formatted.length() > 8) {
-            formatted = formatted.substring(formatted.length() - 8);
-        }
-        StringBuilder buf = new StringBuilder("00000000");
-        buf.replace(8 - formatted.length(), 8, formatted);
-        return buf.toString();
-    }
-
-    public static String toBinaryString(int value) {
-        String formatted = Long.toBinaryString(value);
-        StringBuilder buf = new StringBuilder(StringUtils.repeat('0', 32));
-        buf.replace(64 - formatted.length(), 64, formatted);
-        return buf.toString();
-    }
-
-    public static String toBinaryString(long value) {
-        String formatted = Long.toBinaryString(value);
-        StringBuilder buf = new StringBuilder(StringUtils.repeat('0', 64));
-        buf.replace(64 - formatted.length(), 64, formatted);
-        return buf.toString();
-    }
 }

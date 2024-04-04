@@ -38,7 +38,7 @@ public class UuidGenerator {
         return new UUID(mostSignificantBits, leastSignificantBits);
     }
 
-    public UUID randomUuid() {
-        return INSTANCE.randomUuid();
+    public static UUID randomUuid() {
+        return INSTANCE.generateUuid();
     }
 }
