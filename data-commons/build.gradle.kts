@@ -4,6 +4,7 @@ plugins {
     kotlin("jvm")
 }
 dependencies {
+    compileOnly("org.jetbrains.kotlin:kotlin-stdlib")
     api("org.springframework.data:spring-data-commons")
     compileOnly("org.springframework:spring-web")
     compileOnly("org.springframework:spring-webflux")

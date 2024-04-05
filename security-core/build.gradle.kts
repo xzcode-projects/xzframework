@@ -5,11 +5,10 @@ plugins {
 }
 dependencies {
     api("org.slf4j:slf4j-api")
-
-    compileOnly("jakarta.servlet:jakarta.servlet-api")
-    compileOnly("org.springframework:spring-web")
-    compileOnly("org.springframework.security:spring-security-web")
+    api("jakarta.servlet:jakarta.servlet-api")
+    api("org.springframework:spring-web")
+    api("org.springframework.security:spring-security-web")
 
     implementation("org.apache.commons:commons-lang3")
-    implementation("com.fasterxml.jackson.core:jackson-annotations")
+    compileOnly("com.fasterxml.jackson.core:jackson-annotations")
 }

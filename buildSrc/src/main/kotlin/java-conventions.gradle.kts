@@ -28,8 +28,10 @@ tasks {
 }
 
 dependencies {
-    implementation(platform("commons-io:commons-io:${Versions.commons_io}"))
-    implementation(platform("org.apache.commons:commons-collections4:${Versions.common_collections}"))
+    constraints {
+        implementation("commons-io:commons-io:${Versions.commons_io}")
+        implementation("org.apache.commons:commons-collections4:${Versions.common_collections}")
+    }
     implementation(platform("org.springframework.boot:spring-boot-dependencies:${Versions.spring_boot}"))
 }
 
