@@ -7,22 +7,30 @@ plugins {
     `maven-publish`
 }
 
-tasks.withType<JavaCompile> {
-    options.encoding = "UTF-8"
-}
+tasks {
 
-tasks.withType<Test> {
-    useJUnitPlatform()
-}
+    test {
+        useJUnitPlatform()
+    }
 
-java {
-    withSourcesJar()
+    compileJava {
+        options.encoding = "UTF-8"
+    }
+
+    java {
+        targetCompatibility = JavaVersion.VERSION_17
+        sourceCompatibility = JavaVersion.VERSION_17
+        toolchain {
+            languageVersion = JavaLanguageVersion.of(17)
+        }
+        withSourcesJar()
+    }
 }
 
 dependencies {
     implementation(platform("commons-io:commons-io:${Versions.commons_io}"))
-    implementation(platform("org.apache.commons:commons-collections4:${Versions.commonCollections4}"))
-    implementation(platform(org.springframework.boot.gradle.plugin.SpringBootPlugin.BOM_COORDINATES))
+    implementation(platform("org.apache.commons:commons-collections4:${Versions.common_collections}"))
+    implementation(platform("org.springframework.boot:spring-boot-dependencies:${Versions.spring_boot}"))
 }
 
 publishing {
