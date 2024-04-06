@@ -4,18 +4,13 @@ plugins {
     `java-platform`
 }
 
-allprojects {
-    version = "3.2.4-SNAPSHOT"
-}
 javaPlatform {
     allowDependencies()
 }
 
 dependencies {
-    api(platform("org.springframework.boot:spring-boot-dependencies:${Versions.spring_boot}"))
+    api(platform("org.springframework.boot:spring-boot-dependencies:${versions["spring_boot"]}"))
     constraints {
-        api("commons-io:commons-io:${Versions.commons_io}")
-        api("org.apache.commons:commons-collections4:${Versions.common_collections}")
         api(project(":autoconfigure"))
         api(project(":data-commons"))
         api(project(":data-jpa"))
@@ -32,6 +27,19 @@ publishing {
     publications {
         create<MavenPublication>("platform") {
             from(components["javaPlatform"])
+        }
+    }
+
+    repositories {
+        // 发布到自己的maven私有仓库
+        maven {
+            val releasesRepoUrl = "https://packages.aliyun.com/maven/repository/2124183-release-zS40pt"
+            val snapshotsRepoUrl = "https://packages.aliyun.com/maven/repository/2124183-snapshot-jg10er"
+            url = uri(if (project.version.toString().endsWith("SNAPSHOT")) snapshotsRepoUrl else releasesRepoUrl)
+            credentials {
+                username = "5f213c551d62073ceeb332b2"
+                password = "NC=d3W)28)]W"
+            }
         }
     }
 }

@@ -1,5 +1,8 @@
-object Versions {
-    const val commons_io = "2.15.1"
-    const val common_collections = "4.4"
-    const val spring_boot = "3.2.4"
+import java.util.*
+
+val versions = Properties().apply {
+    val stream = object {}.javaClass.getResourceAsStream("versions.properties")
+    load(stream)
 }
+
+
