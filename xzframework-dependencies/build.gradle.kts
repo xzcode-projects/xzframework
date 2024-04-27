@@ -15,11 +15,14 @@ dependencies {
         api(project(":data-commons"))
         api(project(":data-jpa"))
         api(project(":security-core"))
+        api(project(":security-web"))
+        api(project(":security-config"))
         api(project(":web"))
         api(project(":wx-mp-sdk"))
         api(project(":wx-mp-spring-security"))
         api(project(":activiti-api"))
         api(project(":activiti-jpa-impl"))
+        api(project(":spring-session-ext"))
     }
 }
 

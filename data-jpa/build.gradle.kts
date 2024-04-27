@@ -2,6 +2,7 @@ group = "org.xzframework.data"
 plugins {
     id("java-conventions")
     kotlin("jvm")
+    `java-library`
 }
 dependencies {
     api("org.springframework.data:spring-data-jpa")
