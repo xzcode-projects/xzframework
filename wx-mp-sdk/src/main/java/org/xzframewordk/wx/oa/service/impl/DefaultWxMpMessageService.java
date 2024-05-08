@@ -1,13 +1,13 @@
-package org.xzframewordk.wx.mp.service.impl;
+package org.xzframewordk.wx.oa.service.impl;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.xzframewordk.wx.mp.domain.MessageResult;
-import org.xzframewordk.wx.mp.domain.TemplateMessage;
-import org.xzframewordk.wx.mp.domain.WxMpAccessToken;
-import org.xzframewordk.wx.mp.service.WxMpAccessTokenService;
-import org.xzframewordk.wx.mp.service.WxMpMessageService;
-import org.xzframewordk.wx.mp.service.WxRequestExecutor;
+import org.xzframewordk.wx.oa.domain.MessageResult;
+import org.xzframewordk.wx.oa.domain.TemplateMessage;
+import org.xzframewordk.wx.domain.WxAccessToken;
+import org.xzframewordk.wx.WxAccessTokenService;
+import org.xzframewordk.wx.oa.service.WxMpMessageService;
+import org.xzframewordk.wx.WxRequestExecutor;
 
 import java.util.Collections;
 import java.util.Map;
@@ -19,20 +19,19 @@ public class DefaultWxMpMessageService implements WxMpMessageService {
     private static final String url = "https://api.weixin.qq.com/cgi-bin/message/template/send?access_token={accessToken}";
     private final WxRequestExecutor requestExecutor;
 
-    private final WxMpAccessTokenService accessTokenService;
+    private final WxAccessTokenService accessTokenService;
 
 
     public DefaultWxMpMessageService(
             WxRequestExecutor requestExecutor,
-            WxMpAccessTokenService accessTokenService
+            WxAccessTokenService accessTokenService
     ) {
         this.requestExecutor = requestExecutor;
         this.accessTokenService = accessTokenService;
     }
 
-    @Override
-    public MessageResult sendTemplateMessage(TemplateMessage message) {
-        WxMpAccessToken accessToken = accessTokenService.getAccessToken();
+    public MessageResult sendTemplateMessage(String appid, TemplateMessage message) {
+        WxAccessToken accessToken = accessTokenService.getAccessToken(appid);
         MessageResult result = requestExecutor.post(
                 url,
                 Collections.emptyMap(),

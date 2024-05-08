@@ -17,8 +17,8 @@ import org.springframework.security.core.userdetails.AuthenticationUserDetailsSe
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsChecker;
 import org.springframework.util.Assert;
-import org.xzframewordk.wx.mp.domain.WxMpOAuth2AccessToken;
-import org.xzframewordk.wx.mp.service.WxMpOAuth2Service;
+import org.xzframewordk.wx.oa.domain.WxMpOAuth2AccessToken;
+import org.xzframewordk.wx.oa.service.WxMpOAuth2Service;
 
 import java.util.Collections;
 

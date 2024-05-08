@@ -1,4 +1,4 @@
-package org.xzframewordk.wx.mp.domain;
+package org.xzframewordk.wx.domain;
 
 import com.fasterxml.jackson.annotation.JsonSetter;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
@@ -8,15 +8,13 @@ import java.io.Serializable;
 import java.time.ZonedDateTime;
 
 @JsonDeserialize(as = JacksonBaseWxMpAccessToken.class)
-public interface WxMpAccessToken {
+public interface WxAccessToken {
     String getAccessToken();
 
     ZonedDateTime getExpiresAt();
-
-
 }
 
-class JacksonBaseWxMpAccessToken implements WxMpAccessToken, Serializable {
+class JacksonBaseWxMpAccessToken implements WxAccessToken, Serializable {
 
     @Serial
     private static final long serialVersionUID = 4363693927392313909L;

@@ -3,7 +3,7 @@ package org.xzframework.security.web.wx.mp.oauth2.authentication;
 import org.springframework.security.authentication.AbstractAuthenticationToken;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.xzframewordk.wx.mp.domain.WxMpOAuth2AccessToken;
+import org.xzframewordk.wx.oa.domain.WxMpOAuth2AccessToken;
 
 import java.io.Serial;
 import java.io.Serializable;

@@ -1,3 +1,5 @@
+import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+
 group = "org.xzframework.wx"
 plugins {
     id("java-conventions")
@@ -14,6 +16,13 @@ tasks {
     java {
         toolchain {
             languageVersion = JavaLanguageVersion.of(17)
+        }
+    }
+
+    withType<KotlinCompile> {
+        kotlinOptions {
+            freeCompilerArgs += listOf("-Xjsr305=strict")
+            jvmTarget = "17"
         }
     }
 }

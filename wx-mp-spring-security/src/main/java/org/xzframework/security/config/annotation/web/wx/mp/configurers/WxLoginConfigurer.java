@@ -13,7 +13,7 @@ import org.springframework.security.web.authentication.session.SessionAuthentica
 import org.springframework.security.web.context.SecurityContextRepository;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import org.springframework.security.web.util.matcher.RequestMatcher;
-import org.xzframewordk.wx.mp.service.WxMpOAuth2Service;
+import org.xzframewordk.wx.oa.service.WxMpOAuth2Service;
 import org.xzframework.security.web.wx.mp.oauth2.authentication.WxCodeAuthenticationProcessingFilter;
 import org.xzframework.security.web.wx.mp.oauth2.authentication.WxOauth2AccessTokenAuthenticationToken;
 import org.xzframework.security.web.wx.mp.oauth2.authentication.WxOauth2AuthenticationProvider;

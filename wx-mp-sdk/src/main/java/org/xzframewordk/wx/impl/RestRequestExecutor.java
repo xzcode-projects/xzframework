@@ -1,4 +1,4 @@
-package org.xzframewordk.wx.mp.service.impl;
+package org.xzframewordk.wx.impl;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -8,8 +8,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.web.client.RestOperations;
 import org.springframework.web.client.RestTemplate;
-import org.xzframewordk.wx.mp.service.ValueConverter;
-import org.xzframewordk.wx.mp.service.WxRequestExecutor;
+import org.xzframewordk.wx.ObjectDeserializer;
+import org.xzframewordk.wx.WxRequestExecutor;
 
 import java.util.Map;
 
@@ -18,16 +18,16 @@ public class RestRequestExecutor implements WxRequestExecutor {
 
     private final RestOperations restOperations;
 
-    private final ValueConverter converter;
+    private final ObjectDeserializer converter;
 
     public RestRequestExecutor() {
         this(new RestTemplate(), new ObjectMapper());
     }
 
     public RestRequestExecutor(RestOperations restOperations, ObjectMapper objectMapper) {
-        this(restOperations, new ValueConverter() {
+        this(restOperations, new ObjectDeserializer() {
             @Override
-            public <R> R apply(String body, Class<R> valueType) {
+            public <R> R deserialize(String body, Class<R> valueType) {
                 try {
                     return objectMapper.readValue(body, valueType);
                 } catch (JsonProcessingException e) {
@@ -39,7 +39,7 @@ public class RestRequestExecutor implements WxRequestExecutor {
 
     public RestRequestExecutor(
             RestOperations restOperations,
-            ValueConverter valueConverter
+            ObjectDeserializer valueConverter
     ) {
         this.restOperations = restOperations;
         this.converter = valueConverter;
@@ -67,9 +67,19 @@ public class RestRequestExecutor implements WxRequestExecutor {
                     uriVariables
             );
             String responseBody = responseEntity.getBody();
-            return converter.apply(responseBody, valueType);
+            return converter.deserialize(responseBody, valueType);
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
+    }
+
+    @Override
+    public byte[] postForByte(String url, Map<String, String> headers, Map<String, String> uriVariables, Object body) {
+        return restOperations.postForObject(
+                url,
+                body,
+                byte[].class,
+                uriVariables
+        );
     }
 }

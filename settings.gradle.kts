@@ -14,3 +14,15 @@ include("spring-session-ext")
 include("security-web")
 include("security-config")
 include("xzframework-dependencies")
+
+pluginManagement {
+    plugins {
+        kotlin("jvm") version "1.9.23"
+        kotlin("kapt") version "1.9.23"
+        kotlin("plugin.spring") version "1.9.23"
+        kotlin("plugin.jpa") version "1.9.23"
+        id("org.hibernate.orm") version "6.5.0.Final"
+        id("org.springframework.boot") version "3.2.5"
+        id("cz.habarta.typescript-generator") version "3.2.1263"
+    }
+}

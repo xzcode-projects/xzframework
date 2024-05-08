@@ -1,4 +1,4 @@
-package org.xzframewordk.wx.mp.domain;
+package org.xzframewordk.wx.oa.domain;
 
 import com.fasterxml.jackson.annotation.JsonGetter;
 

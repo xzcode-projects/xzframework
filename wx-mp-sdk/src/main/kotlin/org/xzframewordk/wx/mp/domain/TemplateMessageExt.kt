@@ -1,5 +1,7 @@
 package org.xzframewordk.wx.mp.domain
 
+import org.xzframewordk.wx.oa.domain.TemplateMessage
+
 class MiniprogramDsl {
     var appid: String? = null
     var pagepath: String? = null

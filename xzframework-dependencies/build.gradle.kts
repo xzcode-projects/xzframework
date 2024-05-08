@@ -23,6 +23,7 @@ dependencies {
         api(project(":activiti-api"))
         api(project(":activiti-jpa-impl"))
         api(project(":spring-session-ext"))
+        api(project(":wx-mp-sdk"))
     }
 }
 

@@ -1,4 +1,4 @@
-package org.xzframewordk.wx.mp.service;
+package org.xzframewordk.wx;
 
 import java.util.Map;
 
@@ -24,14 +24,12 @@ public interface WxRequestExecutor {
 
 
     /**
-     * 执行一个请求
+     * 执行一个请求，并返回响应字节
      *
-     * @param <B>          请求体类型
-     * @param <R>          返回的实体类型
-     * @param url
-     * @param method
-     * @param uriVariables
-     * @param body
+     * @param url          请求uri
+     * @param headers      请求头
+     * @param uriVariables 路径参数
+     * @param body         请求体
      */
     <B, R> R execute(
             String url,
@@ -41,4 +39,6 @@ public interface WxRequestExecutor {
             B body,
             Class<R> valueType
     );
+
+    byte[] postForByte(String url, Map<String, String> headers, Map<String, String> uriVariables, Object body);
 }
