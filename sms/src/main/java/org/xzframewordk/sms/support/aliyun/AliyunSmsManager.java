@@ -54,7 +54,7 @@ public class AliyunSmsManager implements SmsManager {
         try (AsyncClient client = buildClient(properties)) {
             return client.sendSms(request)
                     .thenApply(it -> {
-                        if (Objects.equals(it.getBody().getCode(), "OK")) {
+                        if (!Objects.equals(it.getBody().getCode(), "OK")) {
                             log.error("发送短信时发送错误。响应体为[{}]", it.getBody());
                             if (it.getBody().getMessage().contains("流控")) {
                                 throw new RuntimeException("触发流量并发控制");
