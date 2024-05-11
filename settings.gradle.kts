@@ -13,6 +13,7 @@ project(":activiti-jpa-impl").projectDir = file("activiti/activiti-jpa-impl")
 include("spring-session-ext")
 include("security-web")
 include("security-config")
+include("sms")
 include("xzframework-dependencies")
 
 pluginManagement {

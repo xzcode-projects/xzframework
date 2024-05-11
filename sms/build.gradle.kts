@@ -1,15 +1,13 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
-group = "org.xzframework.wx"
+group = "org.xzframework.sms"
 plugins {
     id("java-conventions")
     kotlin("jvm")
 }
 dependencies {
     api("org.slf4j:slf4j-api")
-    api("org.springframework:spring-web")
-    api("org.springframework.integration:spring-integration-core")
-    api("com.fasterxml.jackson.core:jackson-databind")
+    compileOnly("com.aliyun:alibabacloud-dysmsapi20170525:2.0.24")
 }
 
 tasks {
