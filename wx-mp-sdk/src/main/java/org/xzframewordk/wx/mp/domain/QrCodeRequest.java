@@ -9,22 +9,25 @@ public record QrCodeRequest(
         Integer width,
 
         @JsonGetter("auto_color")
-        Boolean autoColor,
+        Boolean auto_color,
 
         @JsonGetter("line_color")
-        QrCodeColor lineColor,
+        QrCodeColor line_color,
 
         @JsonGetter("is_hyaline")
         Boolean hyaline,
 
         @JsonGetter("env_version")
-        String envVersion
+        String env_version
 ) {
-    public QrCodeRequest {
-        path = "";
-        width = 140;
-        autoColor = false;
-        hyaline = false;
-        envVersion = "release";
+    public QrCodeRequest() {
+        this(
+                "",
+                140,
+                false,
+                null,
+                false,
+                "release"
+        );
     }
 }

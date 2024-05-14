@@ -8,31 +8,24 @@ public record UnlimitedQRCodeRequest(
         String page,
 
         @JsonGetter("check_path")
-        Boolean checkPath,
+        Boolean check_path,
 
-        int width,
+        Integer width,
 
         @JsonGetter("auto_color")
-        Boolean autoColor,
+        Boolean auto_color,
 
         @JsonGetter("line_color")
-        QrCodeColor lineColor,
+        QrCodeColor line_color,
 
         @JsonGetter("is_hyaline")
         Boolean hyaline,
 
         @JsonGetter("env_version")
-        String envVersion
+        String env_version
 ) {
 
-
-    public UnlimitedQRCodeRequest {
-        page = "";
-        checkPath = false;
-        width = 140;
-        autoColor = false;
-        lineColor = null;
-        hyaline = false;
-        envVersion = "release";
+    public UnlimitedQRCodeRequest() {
+        this("", "", false, 140, false, null, false, "release");
     }
 }
