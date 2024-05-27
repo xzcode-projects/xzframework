@@ -1,6 +1,3 @@
-import java.io.FileReader
-import java.util.*
-
 plugins {
     `kotlin-dsl`
 }
@@ -13,7 +10,7 @@ repositories {
 dependencies {
     implementation(kotlin("script-runtime"))
 }
-val versions = Properties().apply { load(FileReader(file("src/main/resources/versions.properties"))) }
+
 tasks {
     java {
         toolchain {
