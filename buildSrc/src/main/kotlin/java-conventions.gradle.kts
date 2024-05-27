@@ -28,7 +28,7 @@ tasks {
 }
 
 dependencies {
-    implementation(platform(org.springframework.boot.gradle.plugin.SpringBootPlugin.BOM_COORDINATES))
+    implementation(platform("org.springframework.boot:spring-boot-dependencies:${versions["spring_boot"]}"))
 }
 
 publishing {

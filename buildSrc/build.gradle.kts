@@ -21,7 +21,3 @@ tasks {
         }
     }
 }
-
-dependencies {
-    implementation("org.springframework.boot:spring-boot-gradle-plugin:${versions["spring_boot"]}")
-}
