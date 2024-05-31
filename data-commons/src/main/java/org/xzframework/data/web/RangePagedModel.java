@@ -32,6 +32,10 @@ public class RangePagedModel<T, M extends Comparable<?> & Serializable> {
         this.page = page;
     }
 
+    public static <T, M extends Comparable<?> & Serializable> RangePagedModel<T, M> empty() {
+        return new RangePagedModel<>(null, Page.empty());
+    }
+
     @JsonProperty
     public List<T> getContent() {
         return page.getContent();
