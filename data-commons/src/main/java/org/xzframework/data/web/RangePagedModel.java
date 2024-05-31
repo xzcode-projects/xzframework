@@ -22,6 +22,10 @@ public class RangePagedModel<T, M extends Comparable<?> & Serializable> {
 
     private final Page<T> page;
 
+    public RangePagedModel() {
+        this(null, Page.empty());
+    }
+
     public RangePagedModel(RangePage<T, M> rangePage) {
         page = rangePage;
         max = rangePage.getMax();
