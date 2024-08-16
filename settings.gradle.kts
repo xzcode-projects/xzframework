@@ -23,7 +23,7 @@ pluginManagement {
         kotlin("plugin.spring") version "1.9.24"
         kotlin("plugin.jpa") version "1.9.24"
         id("org.hibernate.orm") version "6.5.2.Final"
-        id("org.springframework.boot") version "3.3.0"
+        id("org.springframework.boot") version "3.3.2"
         id("cz.habarta.typescript-generator") version "3.2.1263"
     }
 }
