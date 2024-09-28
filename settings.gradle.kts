@@ -17,6 +17,10 @@ include("sms")
 include("xzframework-dependencies")
 
 pluginManagement {
+    repositories {
+        maven("https://maven.aliyun.com/repository/gradle-plugin")
+        gradlePluginPortal()
+    }
     plugins {
         kotlin("jvm") version "1.9.24"
         kotlin("kapt") version "1.9.24"
