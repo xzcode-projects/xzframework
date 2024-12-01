@@ -9,6 +9,7 @@ import org.xzframework.data.domain.RangePage;
 import java.io.Serializable;
 import java.util.List;
 import java.util.Objects;
+import java.util.function.Function;
 
 /**
  * 基于Spring Boot 3.3的PagedModel,构建此 model
@@ -26,9 +27,9 @@ public class RangePagedModel<T, M extends Comparable<?> & Serializable> {
         this(null, Page.empty());
     }
 
-    public RangePagedModel(RangePage<T, M> rangePage) {
-        page = rangePage;
-        max = rangePage.getMax();
+    public RangePagedModel(RangePage<T, M> page) {
+        this.page = page;
+        max = page.getMax();
     }
 
     public RangePagedModel(M max, Page<T> page) {
@@ -66,5 +67,9 @@ public class RangePagedModel<T, M extends Comparable<?> & Serializable> {
     @Override
     public int hashCode() {
         return Objects.hash(max, page);
+    }
+
+    public <R> RangePagedModel<R, M> map(Function<T, R> convert) {
+        return new RangePagedModel<>(max, page.map(convert));
     }
 }
