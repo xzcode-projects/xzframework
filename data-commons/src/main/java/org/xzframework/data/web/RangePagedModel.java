@@ -67,4 +67,8 @@ public class RangePagedModel<T, M extends Comparable<?> & Serializable> {
     public int hashCode() {
         return Objects.hash(max, page);
     }
+
+    public <R> RangePagedModel<R, M> map(Function<T, R> convert) {
+        return new RangePagedModel<>(max, page.map(convert));
+    }
 }
