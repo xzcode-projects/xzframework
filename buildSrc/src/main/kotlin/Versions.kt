@@ -1,8 +1,3 @@
-import java.util.*
-
-val versions = Properties().apply {
-    val stream = object {}.javaClass.getResourceAsStream("versions.properties")
-    load(stream)
-}
-
-
+val versions = mapOf(
+    "spring_boot" to "3.4.1"
+)
