@@ -13,11 +13,11 @@ tasks {
         useJUnitPlatform()
     }
 
-    compileJava {
-        options.encoding = "UTF-8"
-    }
-
+ 
     java {
+        compileJava {
+            options.encoding = "UTF-8"
+        }
         targetCompatibility = JavaVersion.VERSION_17
         sourceCompatibility = JavaVersion.VERSION_17
         toolchain {
