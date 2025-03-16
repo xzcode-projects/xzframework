@@ -77,8 +77,8 @@ public class InMemoryMapSessionRepository implements SessionRepository<MapSessio
 
     @Override
     public void deleteById(String id) {
-        deleteIndex(findById(id));
-        sessions.remove(id);
+        Session removed = sessions.remove(id);
+        deleteIndex(removed);
     }
 
     @Override

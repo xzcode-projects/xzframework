@@ -1,4 +1,5 @@
 repositories {
+    maven("https://maven.aliyun.com/repository/public")
     mavenCentral()
 }
 
@@ -13,7 +14,6 @@ tasks {
         useJUnitPlatform()
     }
 
- 
     java {
         compileJava {
             options.encoding = "UTF-8"
