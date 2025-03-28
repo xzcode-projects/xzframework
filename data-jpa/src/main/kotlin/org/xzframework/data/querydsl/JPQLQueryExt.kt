@@ -14,7 +14,7 @@ import org.springframework.data.mapping.PropertyPath
 import org.springframework.data.querydsl.QSort
 
 
-fun <T> JPQLQuery<T>.applyPagination(pageable: Pageable, clazz: Class<T>): JPQLQuery<T> {
+fun <T, P> JPQLQuery<T>.applyPagination(pageable: Pageable, clazz: Class<P>): JPQLQuery<T> {
     if (pageable.isUnpaged) {
         return this
     }
@@ -25,7 +25,7 @@ fun <T> JPQLQuery<T>.applyPagination(pageable: Pageable, clazz: Class<T>): JPQLQ
     return this
 }
 
-fun <T> JPQLQuery<T>.applySorting(sort: Sort, clazz: Class<T>): JPQLQuery<T> {
+fun <T, P> JPQLQuery<T>.applySorting(sort: Sort, clazz: Class<P>): JPQLQuery<T> {
     val pathBuilder = PathBuilderFactory().create(clazz)
     applySorting(this, sort, pathBuilder)
     return this
