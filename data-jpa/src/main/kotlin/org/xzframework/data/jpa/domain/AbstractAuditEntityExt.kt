@@ -5,10 +5,10 @@ import org.springframework.data.querydsl.QuerydslPredicateExecutor
 import java.io.Serializable
 
 
-val <ID : Serializable, NAME : Serializable> AbstractAuditEntity<ID, NAME>.createdByOrNull: Auditor<ID?, NAME?>?
+val <ID : Serializable> AbstractAuditEntity<ID>.createdByOrNull: Auditor<ID?>?
     get() = createdBy.orElse(null)
 
-val <ID : Serializable, NAME : Serializable> AbstractAuditEntity<ID, NAME>.lastModifiedByOrNull: Auditor<ID?, NAME?>?
+val <ID : Serializable> AbstractAuditEntity<ID>.lastModifiedByOrNull: Auditor<ID?>?
     get() = lastModifiedBy.orElse(null)
 
 fun <T> QuerydslPredicateExecutor<T>.findOneOrNull(predicate: Predicate): T? = findOne(predicate).orElse(null)

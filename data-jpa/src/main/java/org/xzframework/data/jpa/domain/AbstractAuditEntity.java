@@ -10,7 +10,7 @@ import java.util.Optional;
 
 @MappedSuperclass
 @EntityListeners(AuditingEntityListener.class)
-public abstract class AbstractAuditEntity<UID extends Serializable, UNAME extends Serializable> extends AbstractEntity {
+public abstract class AbstractAuditEntity<UID extends Serializable> extends AbstractEntity {
 
     @Embedded
     @AttributeOverrides({
@@ -23,7 +23,8 @@ public abstract class AbstractAuditEntity<UID extends Serializable, UNAME extend
                     column = @Column(name = "created_user_name_", updatable = false, length = 100)
             )
     })
-    private Auditor<UID, UNAME> createdBy;
+    private Auditor<UID> createdBy;
+
     @Embedded
     @AttributeOverrides({
             @AttributeOverride(
@@ -35,7 +36,7 @@ public abstract class AbstractAuditEntity<UID extends Serializable, UNAME extend
                     column = @Column(name = "last_modified_user_name_", length = 100)
             )
     })
-    private Auditor<UID, UNAME> lastModifiedBy;
+    private Auditor<UID> lastModifiedBy;
 
     public AbstractAuditEntity() {
     }
@@ -44,21 +45,21 @@ public abstract class AbstractAuditEntity<UID extends Serializable, UNAME extend
         super(id);
     }
 
-    public Optional<Auditor<UID, UNAME>> getCreatedBy() {
+    public Optional<Auditor<UID>> getCreatedBy() {
         return Optional.ofNullable(createdBy);
     }
 
     @CreatedBy
-    public void setCreatedBy(Auditor<UID, UNAME> createdBy) {
+    public void setCreatedBy(Auditor<UID> createdBy) {
         this.createdBy = createdBy;
     }
 
-    public Optional<Auditor<UID, UNAME>> getLastModifiedBy() {
+    public Optional<Auditor<UID>> getLastModifiedBy() {
         return Optional.ofNullable(lastModifiedBy);
     }
 
     @LastModifiedBy
-    public void setLastModifiedBy(Auditor<UID, UNAME> lastModifiedBy) {
+    public void setLastModifiedBy(Auditor<UID> lastModifiedBy) {
         this.lastModifiedBy = lastModifiedBy;
     }
 
