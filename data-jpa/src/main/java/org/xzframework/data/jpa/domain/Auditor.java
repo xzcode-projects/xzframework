@@ -3,15 +3,15 @@ package org.xzframework.data.jpa.domain;
 import java.io.Serial;
 import java.io.Serializable;
 
-public class Auditor<ID extends Serializable> implements Serializable {
+public class Auditor<UID extends Serializable> implements Serializable {
     @Serial
     private static final long serialVersionUID = 7655207902942591166L;
 
-    private final ID userid;
+    private final UID userid;
 
     private final String username;
 
-    public Auditor(ID userid, String username) {
+    public Auditor(UID userid, String username) {
         this.userid = userid;
         this.username = username;
     }
@@ -20,7 +20,7 @@ public class Auditor<ID extends Serializable> implements Serializable {
         this(null, null);
     }
 
-    public ID getUserid() {
+    public UID getUserid() {
         return userid;
     }
 
