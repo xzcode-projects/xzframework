@@ -11,7 +11,7 @@ import org.springframework.security.web.authentication.AuthenticationSuccessHand
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.authentication.session.SessionAuthenticationStrategy;
 import org.springframework.security.web.context.SecurityContextRepository;
-import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
+import org.springframework.security.web.servlet.util.matcher.PathPatternRequestMatcher;
 import org.springframework.security.web.util.matcher.RequestMatcher;
 import org.xzframewordk.wx.oa.service.WxMpOAuth2Service;
 import org.xzframework.security.web.wx.mp.oauth2.authentication.WxCodeAuthenticationProcessingFilter;
@@ -63,7 +63,8 @@ public class WxLoginConfigurer<H extends HttpSecurityBuilder<H>> extends
 
     @Override
     protected RequestMatcher createLoginProcessingUrlMatcher(String loginProcessingUrl) {
-        return new AntPathRequestMatcher(loginProcessingUrl);
+        return PathPatternRequestMatcher.withDefaults().matcher(loginProcessingUrl);
+        // return new AntPathRequestMatcher(loginProcessingUrl);
     }
 
 

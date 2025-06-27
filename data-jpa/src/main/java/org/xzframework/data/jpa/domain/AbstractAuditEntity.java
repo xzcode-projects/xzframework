@@ -3,14 +3,12 @@ package org.xzframework.data.jpa.domain;
 import jakarta.persistence.*;
 import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.LastModifiedBy;
-import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.io.Serializable;
 import java.util.Optional;
 
 @MappedSuperclass
-@EntityListeners(AuditingEntityListener.class)
-public abstract class AbstractAuditEntity<UID extends Serializable> extends AbstractEntity {
+public abstract class AbstractAuditEntity<ID extends Serializable, UID extends Serializable> extends AbstractEntity<ID> {
 
     @Embedded
     @AttributeOverrides({
@@ -38,12 +36,6 @@ public abstract class AbstractAuditEntity<UID extends Serializable> extends Abst
     })
     private Auditor<UID> lastModifiedBy;
 
-    public AbstractAuditEntity() {
-    }
-
-    public AbstractAuditEntity(Long id) {
-        super(id);
-    }
 
     public Optional<Auditor<UID>> getCreatedBy() {
         return Optional.ofNullable(createdBy);

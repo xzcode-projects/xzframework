@@ -1,13 +1,25 @@
 package org.xzframework.data.jpa.domain;
 
 import jakarta.persistence.*;
+import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.domain.Persistable;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
+import java.io.Serializable;
 import java.time.ZonedDateTime;
 import java.util.Objects;
 
+@TableGenerators(
+        @TableGenerator(
+                name = "idGenerator",
+                pkColumnName = "table_name_",
+                table = "auto_pk_support_",
+                valueColumnName = "next_id_"
+        )
+)
+@EntityListeners(AuditingEntityListener.class)
 @MappedSuperclass
-public abstract class AbstractEntity implements Persistable<Long> {
+public abstract class AbstractEntity<ID extends Serializable> implements Persistable<ID> {
     /**
      * 创建时间 <br>
      * 字段不能被更新
@@ -15,59 +27,17 @@ public abstract class AbstractEntity implements Persistable<Long> {
     @Column(name = "created_time_", updatable = false, nullable = false)
     private final ZonedDateTime createdTime = ZonedDateTime.now();
 
-
     @Version
     @Column(name = "version_", nullable = false)
     private final Long version = 0L;
 
+    @LastModifiedDate
     @Column(name = "last_modified_time_", nullable = false)
     private ZonedDateTime lastModifiedTime = ZonedDateTime.now();
 
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.TABLE, generator = "tableGenerator")
-    @TableGenerator(
-            name = "tableGenerator",
-            pkColumnName = "table_name_",
-            table = "auto_pk_support_",
-            valueColumnName = "next_id_"
-    )
-    @Column(name = "id_", updatable = false)
-    private Long id;
-
-    public AbstractEntity() {
-    }
-
-    public AbstractEntity(Long id) {
-        this.id = id;
-    }
-
     @Override
-    public Long getId() {
-        return id;
-    }
-
-    protected void setId(Long id) {
-        this.id = id;
-    }
-
-    @Override
-    public boolean isNew() {
-        return Objects.isNull(id);
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        AbstractEntity that = (AbstractEntity) o;
-        return Objects.equals(id, that.id);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id);
-    }
+    abstract public ID getId();
 
     public ZonedDateTime getCreatedTime() {
         return createdTime;
@@ -77,11 +47,22 @@ public abstract class AbstractEntity implements Persistable<Long> {
         return lastModifiedTime;
     }
 
-    @PreUpdate
-    public final void updateLastModifiedTime() {
-        lastModifiedTime = ZonedDateTime.now();
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof AbstractEntity<?> that)) return false;
+        return Objects.equals(getId(), that.getId());
     }
 
+    @Override
+    public int hashCode() {
+        return Objects.hash(getId());
+    }
+
+    @Override
+    public boolean isNew() {
+        return Objects.isNull(getId());
+    }
 
     /**
      * <p>
