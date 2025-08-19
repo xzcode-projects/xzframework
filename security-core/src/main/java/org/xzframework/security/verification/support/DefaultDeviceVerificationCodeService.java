@@ -29,7 +29,8 @@ public class DefaultDeviceVerificationCodeService implements DeviceVerificationC
     public DeviceVerificationCode create(DeviceInfo device) {
         String deviceKey = device.getDeviceKey();
         concurrencyStrategy.tryLock(device);
-        DeviceVerificationCode generatedCode = new DeviceVerificationCode(deviceKey, RandomStringUtils.random(6, "0123456789"));
+        RandomStringUtils.secure().nextNumeric(10);
+        DeviceVerificationCode generatedCode = new DeviceVerificationCode(deviceKey, RandomStringUtils.secure().next(6, "0123456789"));
         log.debug("create a new DeviceVerificationCode [{}]", generatedCode);
         return codeStorage.save(generatedCode);
     }

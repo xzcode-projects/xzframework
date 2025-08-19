@@ -20,9 +20,6 @@ tasks {
         }
         targetCompatibility = JavaVersion.VERSION_17
         sourceCompatibility = JavaVersion.VERSION_17
-        toolchain {
-            languageVersion = JavaLanguageVersion.of(17)
-        }
         withSourcesJar()
     }
 }
@@ -32,24 +29,6 @@ dependencies {
 }
 
 publishing {
-    publications.create<MavenPublication>("maven") {
-        from(components["java"])
-        versionMapping {
-            usage("java-api") {
-                fromResolutionOf("runtimeClasspath")
-            }
-            usage("java-runtime") {
-                fromResolutionResult()
-            }
-        }
-
-        pom.withXml {
-            val root = asNode()
-            val list = root["dependencyManagement"] as groovy.util.NodeList
-            list.forEach { root.remove(it as groovy.util.Node) }
-        }
-    }
-
     repositories {
         // 发布到自己的maven私有仓库
         maven {
