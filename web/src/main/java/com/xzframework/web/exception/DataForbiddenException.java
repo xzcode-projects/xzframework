@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import java.io.Serial;
 
 @ResponseStatus(code = HttpStatus.FORBIDDEN)
-public class DataForbiddenException extends RuntimeException {
+public class DataForbiddenException extends SecurityException {
     @Serial
     private static final long serialVersionUID = 2182641842211384057L;
 
@@ -19,6 +19,6 @@ public class DataForbiddenException extends RuntimeException {
     }
 
     public DataForbiddenException() {
-        super("权限不足");
+        super("data forbidden");
     }
 }
