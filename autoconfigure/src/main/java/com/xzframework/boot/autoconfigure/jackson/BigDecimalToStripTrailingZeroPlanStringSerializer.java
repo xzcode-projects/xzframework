@@ -16,7 +16,12 @@ public class BigDecimalToStripTrailingZeroPlanStringSerializer extends JsonSeria
         if (value == null) {
             gen.writeNull();
         } else {
-            gen.writeString(value.stripTrailingZeros().toPlainString());
+            String str = value.stripTrailingZeros().toPlainString();
+            if (str.length() > 15) {
+                gen.writeString(str);
+            } else {
+                gen.writeNumber(str);
+            }
         }
     }
 }

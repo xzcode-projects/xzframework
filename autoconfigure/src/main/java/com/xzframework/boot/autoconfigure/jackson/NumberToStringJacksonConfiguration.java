@@ -16,10 +16,10 @@ public class NumberToStringJacksonConfiguration {
     @Bean
     public Jackson2ObjectMapperBuilderCustomizer numberToStringJacksonCustomizer() {
         return it -> {
-            it.serializerByType(Long.class, ToStringSerializer.instance);
-            it.serializerByType(Long.TYPE, ToStringSerializer.instance);
+            it.serializerByType(Long.class, LongToStringSerializer.instance);
+            it.serializerByType(Long.TYPE, LongToStringSerializer.instance);
             it.serializerByType(BigDecimal.class, BigDecimalToStripTrailingZeroPlanStringSerializer.instance);
-            it.serializerByType(BigInteger.class, ToStringSerializer.instance);
+            it.serializerByType(BigInteger.class, BigIntegerToStringSerializer.instance);
         };
     }
 }
