@@ -21,10 +21,10 @@ public class BigIntegerToStringSerializer extends JsonSerializer<BigInteger> {
 
         if (value == null) {
             gen.writeNull();
-        } else if (value.compareTo(MIN_SAFE_INTEGER) < 0 && value.compareTo(MAX_SAFE_INTEGER) > 0) {
-            gen.writeString(value.toString());
-        } else {
+        } else if (value.compareTo(MIN_SAFE_INTEGER) > 0 && value.compareTo(MAX_SAFE_INTEGER) < 0) {
             gen.writeNumber(value);
+        } else {
+            gen.writeString(value.toString());
         }
     }
 }
