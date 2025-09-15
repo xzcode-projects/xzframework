@@ -1,11 +1,14 @@
 package org.xzframework.data.web;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.jetbrains.annotations.NotNull;
 import org.springframework.data.domain.Page;
 import org.springframework.data.web.PagedModel;
 import org.springframework.lang.Nullable;
 
 import java.io.Serializable;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Objects;
 import java.util.function.Function;
@@ -16,7 +19,7 @@ import java.util.function.Function;
  * @param <T>
  * @param <M>
  */
-public class RangePagedModel<T, M extends Comparable<?> & Serializable> {
+public class RangePagedModel<T, M extends Comparable<?> & Serializable> implements Iterable<T> {
 
     private final M max;
 
@@ -65,5 +68,12 @@ public class RangePagedModel<T, M extends Comparable<?> & Serializable> {
 
     public <R> RangePagedModel<R, M> map(Function<T, R> convert) {
         return new RangePagedModel<>(max, page.map(convert));
+    }
+
+    @NotNull
+    @Override
+    @JsonIgnore
+    public Iterator<T> iterator() {
+        return page.iterator();
     }
 }
