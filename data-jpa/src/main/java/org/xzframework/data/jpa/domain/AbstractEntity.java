@@ -9,14 +9,6 @@ import java.io.Serializable;
 import java.time.ZonedDateTime;
 import java.util.Objects;
 
-@TableGenerators(
-        @TableGenerator(
-                name = "idGenerator",
-                pkColumnName = "table_name_",
-                table = "auto_pk_support_",
-                valueColumnName = "next_id_"
-        )
-)
 @EntityListeners(AuditingEntityListener.class)
 @MappedSuperclass
 public abstract class AbstractEntity<ID extends Serializable> implements Persistable<ID> {

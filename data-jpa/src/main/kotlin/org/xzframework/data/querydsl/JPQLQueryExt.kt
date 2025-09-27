@@ -1,9 +1,6 @@
 package org.xzframework.data.querydsl
 
-import com.querydsl.core.types.Expression
-import com.querydsl.core.types.Order
-import com.querydsl.core.types.OrderSpecifier
-import com.querydsl.core.types.Path
+import com.querydsl.core.types.*
 import com.querydsl.core.types.dsl.Expressions
 import com.querydsl.core.types.dsl.PathBuilder
 import com.querydsl.core.types.dsl.PathBuilderFactory
@@ -12,6 +9,10 @@ import org.springframework.data.domain.Pageable
 import org.springframework.data.domain.Sort
 import org.springframework.data.mapping.PropertyPath
 import org.springframework.data.querydsl.QSort
+import org.springframework.data.querydsl.QuerydslPredicateExecutor
+
+
+fun <T> QuerydslPredicateExecutor<T>.findOneOrNull(predicate: Predicate): T? = findOne(predicate).orElse(null)
 
 
 fun <T, P> JPQLQuery<T>.applyPagination(pageable: Pageable, clazz: Class<P>): JPQLQuery<T> {
