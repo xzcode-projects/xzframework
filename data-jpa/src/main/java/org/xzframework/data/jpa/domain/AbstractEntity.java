@@ -33,7 +33,7 @@ public abstract class AbstractEntity<ID extends Serializable> implements Persist
 
     @LastModifiedDate
     @Column(name = "last_modified_time_", nullable = false)
-    private ZonedDateTime lastModifiedTime = ZonedDateTime.now();
+    private final ZonedDateTime lastModifiedTime = ZonedDateTime.now();
 
 
     @Override

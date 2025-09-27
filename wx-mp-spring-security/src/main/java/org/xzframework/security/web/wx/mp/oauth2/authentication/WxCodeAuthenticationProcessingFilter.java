@@ -72,9 +72,9 @@ public class WxCodeAuthenticationProcessingFilter extends AbstractAuthentication
 
 
     private String buildRedirect(HttpServletRequest request) {
-        String state = RandomStringUtils.randomAlphabetic(6);
+        String state = RandomStringUtils.secure().nextNumeric(6);
         stateRepository.save(request, state);
-        UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl("https://open.weixin.qq.com/connect/oauth2/authorize");
+        UriComponentsBuilder builder = UriComponentsBuilder.fromUriString("https://open.weixin.qq.com/connect/oauth2/authorize");
         builder.queryParam("appid", appidResolver.get());
         builder.queryParam("redirect_uri", redirectUrlBuilder.apply(request));
         builder.queryParam("response_type", "code");

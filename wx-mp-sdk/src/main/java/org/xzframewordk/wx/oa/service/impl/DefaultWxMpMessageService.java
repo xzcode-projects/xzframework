@@ -2,12 +2,12 @@ package org.xzframewordk.wx.oa.service.impl;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.xzframewordk.wx.WxAccessTokenService;
+import org.xzframewordk.wx.WxRequestExecutor;
+import org.xzframewordk.wx.domain.WxAccessToken;
 import org.xzframewordk.wx.oa.domain.MessageResult;
 import org.xzframewordk.wx.oa.domain.TemplateMessage;
-import org.xzframewordk.wx.domain.WxAccessToken;
-import org.xzframewordk.wx.WxAccessTokenService;
 import org.xzframewordk.wx.oa.service.WxMpMessageService;
-import org.xzframewordk.wx.WxRequestExecutor;
 
 import java.util.Collections;
 import java.util.Map;

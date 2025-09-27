@@ -6,8 +6,8 @@ public class SmsSendException extends RuntimeException {
 
     @Serial
     private static final long serialVersionUID = -6100459986756746503L;
-    private final SmsProperties properties;
 
+    private final SmsProperties properties;
 
     public SmsSendException(String message, SmsProperties properties, Throwable cause) {
         super(message, cause);

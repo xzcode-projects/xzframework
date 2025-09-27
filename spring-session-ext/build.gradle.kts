@@ -1,7 +1,7 @@
 group = "org.xzframework.session"
 plugins {
     id("java-conventions")
-    `java-library`
+    kotlin("jvm")
 }
 dependencies {
     compileOnly("jakarta.servlet:jakarta.servlet-api")

@@ -11,16 +11,15 @@ import java.util.List;
 public class StepRuntimeEntity extends AbstractEntity {
 
 
+    @OneToMany(mappedBy = "step")
+    private final List<ActionRuntimeEntity> actions = new ArrayList<>();
+
     @ManyToOne(optional = false)
     @JoinColumn(name = "process_id_")
     private ProcessRuntimeEntity process;
-
+    
     @Column(name = "name_", length = 200)
     private String name;
-
-
-    @OneToMany(mappedBy = "step")
-    private List<ActionRuntimeEntity> actions = new ArrayList<>();
 
     public String getName() {
         return name;

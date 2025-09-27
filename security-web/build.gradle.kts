@@ -2,7 +2,6 @@ group = "org.xzframework.security"
 plugins {
     id("java-conventions")
     kotlin("jvm")
-    `java-library`
 }
 dependencies {
     compileOnly("jakarta.servlet:jakarta.servlet-api")

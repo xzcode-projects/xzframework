@@ -1,7 +1,7 @@
 package org.xzframewordk.wx.impl;
 
-import org.xzframewordk.wx.domain.WxAccessToken;
 import org.xzframewordk.wx.WxAccessTokenRepository;
+import org.xzframewordk.wx.domain.WxAccessToken;
 
 import java.util.Map;
 import java.util.Optional;

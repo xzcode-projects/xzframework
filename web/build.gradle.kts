@@ -1,6 +1,7 @@
 group = "org.xzframework"
 plugins {
     id("java-conventions")
+    kotlin("jvm")
 }
 dependencies {
     api("org.springframework.data:spring-data-jpa")
