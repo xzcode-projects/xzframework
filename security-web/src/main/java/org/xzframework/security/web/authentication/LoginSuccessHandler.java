@@ -14,7 +14,7 @@ public class LoginSuccessHandler implements AuthenticationSuccessHandler {
         this.principalConverter = principalConverter;
     }
 
-    LoginSuccessHandler() {
+    public LoginSuccessHandler() {
         this.principalConverter = Object::toString;
     }
 

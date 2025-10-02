@@ -9,9 +9,10 @@ import java.io.Serializable;
 import java.time.ZonedDateTime;
 import java.util.Objects;
 
-@EntityListeners(AuditingEntityListener.class)
 @MappedSuperclass
+@EntityListeners(AuditingEntityListener.class)
 public abstract class AbstractEntity<ID extends Serializable> implements Persistable<ID> {
+
     /**
      * 创建时间 <br>
      * 字段不能被更新
@@ -25,8 +26,7 @@ public abstract class AbstractEntity<ID extends Serializable> implements Persist
 
     @LastModifiedDate
     @Column(name = "last_modified_time_", nullable = false)
-    private final ZonedDateTime lastModifiedTime = ZonedDateTime.now();
-
+    private ZonedDateTime lastModifiedTime = ZonedDateTime.now();
 
     @Override
     abstract public ID getId();
@@ -37,6 +37,10 @@ public abstract class AbstractEntity<ID extends Serializable> implements Persist
 
     public ZonedDateTime getLastModifiedTime() {
         return lastModifiedTime;
+    }
+
+    private void setLastModifiedTime(ZonedDateTime lastModifiedTime) {
+        this.lastModifiedTime = lastModifiedTime;
     }
 
     @Override
@@ -75,4 +79,5 @@ public abstract class AbstractEntity<ID extends Serializable> implements Persist
             throw new OptimisticLockException("该资源在其它地方被修改");
         }
     }
+
 }
