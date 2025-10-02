@@ -22,7 +22,7 @@ public abstract class AbstractEntity<ID extends Serializable> implements Persist
 
     @Version
     @Column(name = "version_", nullable = false)
-    private final Long version = 0L;
+    private Long version = 0L;
 
     @LastModifiedDate
     @Column(name = "last_modified_time_", nullable = false)
@@ -41,6 +41,14 @@ public abstract class AbstractEntity<ID extends Serializable> implements Persist
 
     private void setLastModifiedTime(ZonedDateTime lastModifiedTime) {
         this.lastModifiedTime = lastModifiedTime;
+    }
+
+    public Long getVersion() {
+        return version;
+    }
+
+    private void setVersion(Long version) {
+        this.version = version;
     }
 
     @Override
