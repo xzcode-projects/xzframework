@@ -22,12 +22,12 @@ pluginManagement {
         gradlePluginPortal()
     }
     plugins {
-        kotlin("jvm") version "1.9.25"
-        kotlin("kapt") version "1.9.25"
-        kotlin("plugin.spring") version "1.9.25"
-        kotlin("plugin.jpa") version "1.9.25"
-        id("org.hibernate.orm") version "6.6.29.Final"
-        id("org.springframework.boot") version "3.5.6"
+        kotlin("jvm") version "2.2.10"
+        kotlin("kapt") version "2.2.10"
+        kotlin("plugin.spring") version "2.2.10"
+        kotlin("plugin.jpa") version "2.2.10"
+        id("org.hibernate.orm") version "7.1.1.Final"
+        id("org.springframework.boot") version "4.0.0-M3"
         id("cz.habarta.typescript-generator") version "3.2.1263"
     }
 }
