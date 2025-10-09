@@ -1,14 +1,14 @@
-package com.xzframework.boot.autoconfigure.jackson;
+package org.xzframework.jackson;
 
-import com.fasterxml.jackson.core.JsonGenerator;
-import com.fasterxml.jackson.databind.JsonSerializer;
-import com.fasterxml.jackson.databind.SerializerProvider;
+import tools.jackson.core.JacksonException;
+import tools.jackson.core.JsonGenerator;
+import tools.jackson.databind.SerializationContext;
+import tools.jackson.databind.ValueSerializer;
 
-import java.io.IOException;
 import java.math.BigInteger;
 
+public class BigIntegerToStringSerializer extends ValueSerializer<BigInteger> {
 
-public class BigIntegerToStringSerializer extends JsonSerializer<BigInteger> {
     public static final BigIntegerToStringSerializer instance = new BigIntegerToStringSerializer();
 
     //    private static final Long MAX_SAFE_INTEGER = 9007199254740991L;
@@ -17,8 +17,7 @@ public class BigIntegerToStringSerializer extends JsonSerializer<BigInteger> {
     private static final BigInteger MIN_SAFE_INTEGER = new BigInteger("-9000000000000000");
 
     @Override
-    public void serialize(BigInteger value, JsonGenerator gen, SerializerProvider serializers) throws IOException {
-
+    public void serialize(BigInteger value, JsonGenerator gen, SerializationContext ctxt) throws JacksonException {
         if (value == null) {
             gen.writeNull();
         } else if (value.compareTo(MIN_SAFE_INTEGER) > 0 && value.compareTo(MAX_SAFE_INTEGER) < 0) {
@@ -27,4 +26,5 @@ public class BigIntegerToStringSerializer extends JsonSerializer<BigInteger> {
             gen.writeString(value.toString());
         }
     }
+
 }

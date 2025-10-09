@@ -11,9 +11,7 @@ import org.springframework.data.mapping.PropertyPath
 import org.springframework.data.querydsl.QSort
 import org.springframework.data.querydsl.QuerydslPredicateExecutor
 
-
-fun <T> QuerydslPredicateExecutor<T>.findOneOrNull(predicate: Predicate): T? = findOne(predicate).orElse(null)
-
+fun <T : Any> QuerydslPredicateExecutor<T>.findOneOrNull(predicate: Predicate): T? = findOne(predicate).orElse(null)
 
 fun <T, P> JPQLQuery<T>.applyPagination(pageable: Pageable, clazz: Class<P>): JPQLQuery<T> {
     if (pageable.isUnpaged) {
@@ -51,7 +49,6 @@ private fun <T> addOrderByFrom(query: JPQLQuery<T>, qSort: QSort): JPQLQuery<T> 
     val orderSpecifiers = qSort.orderSpecifiers
     return query.orderBy(*orderSpecifiers.toTypedArray())
 }
-
 
 private fun toOrderSpecifier(order: Sort.Order, builder: PathBuilder<*>): OrderSpecifier<*> {
     return OrderSpecifier(

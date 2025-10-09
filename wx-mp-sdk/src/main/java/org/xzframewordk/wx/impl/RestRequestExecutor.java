@@ -1,15 +1,15 @@
 package org.xzframewordk.wx.impl;
 
+import org.jspecify.annotations.NonNull;
 import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
-import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.web.client.RestOperations;
 import org.xzframewordk.wx.ObjectDeserializer;
 import org.xzframewordk.wx.WxRequestExecutor;
 
 import java.util.Map;
-
 
 public class RestRequestExecutor implements WxRequestExecutor {
 
@@ -25,7 +25,6 @@ public class RestRequestExecutor implements WxRequestExecutor {
         this.converter = valueConverter;
     }
 
-
     @Override
     public <B, R> R execute(
             String url,
@@ -36,10 +35,11 @@ public class RestRequestExecutor implements WxRequestExecutor {
             Class<R> valueType
     ) {
         try {
-            LinkedMultiValueMap<String, String> header = new LinkedMultiValueMap<>();
+
+            HttpHeaders header = new HttpHeaders();
             headers.forEach(header::add);
-            HttpEntity<B> entity = new HttpEntity<>(body, header);
-            ResponseEntity<String> responseEntity = restOperations.exchange(
+            HttpEntity<@NonNull B> entity = new HttpEntity<>(body, header);
+            ResponseEntity<@NonNull String> responseEntity = restOperations.exchange(
                     url,
                     HttpMethod.valueOf(method),
                     entity,
@@ -62,4 +62,5 @@ public class RestRequestExecutor implements WxRequestExecutor {
                 uriVariables
         );
     }
+
 }

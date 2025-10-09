@@ -1,18 +1,18 @@
-package com.xzframework.boot.autoconfigure.jackson;
+package org.xzframework.jackson;
 
-import com.fasterxml.jackson.core.JsonGenerator;
-import com.fasterxml.jackson.databind.JsonSerializer;
-import com.fasterxml.jackson.databind.SerializerProvider;
+import tools.jackson.core.JacksonException;
+import tools.jackson.core.JsonGenerator;
+import tools.jackson.databind.SerializationContext;
+import tools.jackson.databind.ValueSerializer;
 
-import java.io.IOException;
 import java.math.BigDecimal;
 
-public class BigDecimalToStripTrailingZeroPlanStringSerializer extends JsonSerializer<BigDecimal> {
+public class BigDecimalToStripTrailingZeroPlanStringSerializer extends ValueSerializer<BigDecimal> {
 
     public final static BigDecimalToStripTrailingZeroPlanStringSerializer instance = new BigDecimalToStripTrailingZeroPlanStringSerializer();
 
     @Override
-    public void serialize(BigDecimal value, JsonGenerator gen, SerializerProvider serializers) throws IOException {
+    public void serialize(BigDecimal value, JsonGenerator gen, SerializationContext ctxt) throws JacksonException {
         if (value == null) {
             gen.writeNull();
         } else {
@@ -24,4 +24,5 @@ public class BigDecimalToStripTrailingZeroPlanStringSerializer extends JsonSeria
             }
         }
     }
+
 }

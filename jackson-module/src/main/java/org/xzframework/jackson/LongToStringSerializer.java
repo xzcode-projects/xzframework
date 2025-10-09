@@ -1,13 +1,11 @@
-package com.xzframework.boot.autoconfigure.jackson;
+package org.xzframework.jackson;
 
-import com.fasterxml.jackson.core.JsonGenerator;
-import com.fasterxml.jackson.databind.JsonSerializer;
-import com.fasterxml.jackson.databind.SerializerProvider;
+import tools.jackson.core.JacksonException;
+import tools.jackson.databind.SerializationContext;
+import tools.jackson.databind.ValueSerializer;
 
-import java.io.IOException;
+public class LongToStringSerializer extends ValueSerializer<Long> {
 
-
-public class LongToStringSerializer extends JsonSerializer<Long> {
     public static final LongToStringSerializer instance = new LongToStringSerializer();
 
     //    private static final Long MAX_SAFE_INTEGER = 9007199254740991L;
@@ -16,7 +14,7 @@ public class LongToStringSerializer extends JsonSerializer<Long> {
     private static final long MIN_SAFE_LONG = -9000000000000000L;
 
     @Override
-    public void serialize(Long value, JsonGenerator gen, SerializerProvider serializers) throws IOException {
+    public void serialize(Long value, tools.jackson.core.JsonGenerator gen, SerializationContext ctxt) throws JacksonException {
         if (value == null) {
             gen.writeNull();
         } else if (value >= MIN_SAFE_LONG && value <= MAX_SAFE_LONG) {
@@ -25,4 +23,5 @@ public class LongToStringSerializer extends JsonSerializer<Long> {
             gen.writeString(value.toString());
         }
     }
+
 }

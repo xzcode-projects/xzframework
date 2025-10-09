@@ -1,3 +1,2 @@
 com.xzframework.boot.autoconfigure.data.XzSpringDataWebConfiguration
 com.xzframework.boot.autoconfigure.data.XzReactiveSpringDataWebConfiguration
-com.xzframework.boot.autoconfigure.jackson.NumberToStringJacksonConfiguration
