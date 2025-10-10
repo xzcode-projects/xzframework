@@ -4,6 +4,8 @@ import tools.jackson.core.json.PackageVersion;
 import tools.jackson.databind.module.SimpleModule;
 
 import java.io.Serial;
+import java.math.BigDecimal;
+import java.math.BigInteger;
 
 public class XzSafeNumberModule extends SimpleModule {
 
@@ -12,14 +14,11 @@ public class XzSafeNumberModule extends SimpleModule {
 
     public XzSafeNumberModule() {
         super(XzSafeNumberModule.class.getName(), PackageVersion.VERSION);
-    }
-
-    @Override
-    public void setupModule(SetupContext context) {
-        super.setupModule(context);
-        addSerializer(BigDecimalToStripTrailingZeroPlanStringSerializer.instance);
-        addSerializer(BigIntegerToStringSerializer.instance);
-        addSerializer(LongToStringSerializer.instance);
+        // 不能在复写的setupModule调用super.setupModule(context)之后添加序列化器
+        // 否则不生效
+        addSerializer(BigDecimal.class, BigDecimalToStripTrailingZeroPlanStringSerializer.instance);
+        addSerializer(BigInteger.class, BigIntegerToStringSerializer.instance);
+        addSerializer(Long.class, LongToStringSerializer.instance);
     }
 
 }

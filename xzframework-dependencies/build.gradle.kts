@@ -25,6 +25,7 @@ dependencies {
         api(project(":spring-session-ext"))
         api(project(":wx-mp-sdk"))
         api(project(":sms"))
+        api(project(":jackson-module"))
     }
 }
 

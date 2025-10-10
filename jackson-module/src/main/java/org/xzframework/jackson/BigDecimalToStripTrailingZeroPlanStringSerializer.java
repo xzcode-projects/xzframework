@@ -3,13 +3,17 @@ package org.xzframework.jackson;
 import tools.jackson.core.JacksonException;
 import tools.jackson.core.JsonGenerator;
 import tools.jackson.databind.SerializationContext;
-import tools.jackson.databind.ValueSerializer;
+import tools.jackson.databind.ser.std.StdSerializer;
 
 import java.math.BigDecimal;
 
-public class BigDecimalToStripTrailingZeroPlanStringSerializer extends ValueSerializer<BigDecimal> {
+public class BigDecimalToStripTrailingZeroPlanStringSerializer extends StdSerializer<BigDecimal> {
 
-    public final static BigDecimalToStripTrailingZeroPlanStringSerializer instance = new BigDecimalToStripTrailingZeroPlanStringSerializer();
+    public final static BigDecimalToStripTrailingZeroPlanStringSerializer instance = new BigDecimalToStripTrailingZeroPlanStringSerializer(BigDecimal.class);
+
+    protected BigDecimalToStripTrailingZeroPlanStringSerializer(Class<?> t) {
+        super(t);
+    }
 
     @Override
     public void serialize(BigDecimal value, JsonGenerator gen, SerializationContext ctxt) throws JacksonException {
