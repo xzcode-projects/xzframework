@@ -1,4 +1,4 @@
-package com.xzframework.boot.autoconfigure.data;
+package com.xzframework.boot.autoconfigure.json;
 
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.context.annotation.Bean;
