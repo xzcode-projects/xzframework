@@ -16,6 +16,7 @@ include("security-config")
 include("sms")
 include("xzframework-dependencies")
 include("jackson-module")
+include("integration")
 
 pluginManagement {
     repositories {
