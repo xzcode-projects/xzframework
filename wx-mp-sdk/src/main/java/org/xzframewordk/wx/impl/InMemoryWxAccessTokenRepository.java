@@ -4,21 +4,16 @@ import org.xzframewordk.wx.WxAccessTokenRepository;
 import org.xzframewordk.wx.domain.WxAccessToken;
 
 import java.util.Map;
-import java.util.Optional;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.function.Function;
 
 public class InMemoryWxAccessTokenRepository implements WxAccessTokenRepository {
 
     private final Map<String, WxAccessToken> storage = new ConcurrentHashMap<>();
 
     @Override
-    public WxAccessToken save(String appid, WxAccessToken accessToken) {
-        storage.put(appid, accessToken);
-        return accessToken;
+    public WxAccessToken computeIfAbsent(String appid, Function<String, WxAccessToken> mappingFunction) {
+        return storage.computeIfAbsent(appid, mappingFunction);
     }
 
-    @Override
-    public Optional<WxAccessToken> findByAppid(String appid) {
-        return Optional.ofNullable(storage.get(appid));
-    }
 }

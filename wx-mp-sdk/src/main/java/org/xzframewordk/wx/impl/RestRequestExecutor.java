@@ -1,11 +1,7 @@
 package org.xzframewordk.wx.impl;
 
-import org.jspecify.annotations.NonNull;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.client.RestOperations;
+import org.springframework.web.client.RestClient;
 import org.xzframewordk.wx.ObjectDeserializer;
 import org.xzframewordk.wx.WxRequestExecutor;
 
@@ -13,15 +9,15 @@ import java.util.Map;
 
 public class RestRequestExecutor implements WxRequestExecutor {
 
-    private final RestOperations restOperations;
+    private final RestClient restClient;
 
     private final ObjectDeserializer converter;
 
     public RestRequestExecutor(
-            RestOperations restOperations,
+            RestClient restClient,
             ObjectDeserializer valueConverter
     ) {
-        this.restOperations = restOperations;
+        this.restClient = restClient;
         this.converter = valueConverter;
     }
 
@@ -35,18 +31,13 @@ public class RestRequestExecutor implements WxRequestExecutor {
             Class<R> valueType
     ) {
         try {
-
-            HttpHeaders header = new HttpHeaders();
-            headers.forEach(header::add);
-            HttpEntity<@NonNull B> entity = new HttpEntity<>(body, header);
-            ResponseEntity<@NonNull String> responseEntity = restOperations.exchange(
-                    url,
-                    HttpMethod.valueOf(method),
-                    entity,
-                    String.class,
-                    uriVariables
-            );
-            String responseBody = responseEntity.getBody();
+            RestClient.RequestBodySpec requestBuilder = restClient.method(HttpMethod.valueOf(method))
+                    .uri(url, uriVariables)
+                    .header("d", "d")
+                    .body(body);
+            headers.forEach(requestBuilder::header);
+            String responseBody = requestBuilder.retrieve()
+                    .body(String.class);
             return converter.deserialize(responseBody, valueType);
         } catch (Exception e) {
             throw new RuntimeException(e);
@@ -55,12 +46,11 @@ public class RestRequestExecutor implements WxRequestExecutor {
 
     @Override
     public byte[] postForByte(String url, Map<String, String> headers, Map<String, String> uriVariables, Object body) {
-        return restOperations.postForObject(
-                url,
-                body,
-                byte[].class,
-                uriVariables
-        );
+        return restClient.post()
+                .uri(url, uriVariables)
+                .body(body)
+                .retrieve()
+                .body(byte[].class);
     }
 
 }

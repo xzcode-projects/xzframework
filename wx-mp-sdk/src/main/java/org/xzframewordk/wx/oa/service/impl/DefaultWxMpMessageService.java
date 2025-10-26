@@ -14,13 +14,14 @@ import java.util.Map;
 import java.util.Objects;
 
 public class DefaultWxMpMessageService implements WxMpMessageService {
+
     private final static Logger log = LoggerFactory.getLogger(DefaultWxMpMessageService.class);
 
     private static final String url = "https://api.weixin.qq.com/cgi-bin/message/template/send?access_token={accessToken}";
+
     private final WxRequestExecutor requestExecutor;
 
     private final WxAccessTokenService accessTokenService;
-
 
     public DefaultWxMpMessageService(
             WxRequestExecutor requestExecutor,
@@ -35,7 +36,7 @@ public class DefaultWxMpMessageService implements WxMpMessageService {
         MessageResult result = requestExecutor.post(
                 url,
                 Collections.emptyMap(),
-                Map.of("accessToken", accessToken.getAccessToken()),
+                Map.of("accessToken", accessToken.accessToken()),
                 message,
                 MessageResult.class
         );
@@ -46,4 +47,5 @@ public class DefaultWxMpMessageService implements WxMpMessageService {
             throw new RuntimeException("发送模板消息时发生错误，错误码：【" + result.errcode() + "】,错误消息【" + result.errmsg() + "】");
         }
     }
+
 }

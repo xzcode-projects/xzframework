@@ -1,7 +1,8 @@
 package org.xzframewordk.wx.domain;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonSetter;
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import tools.jackson.databind.annotation.JsonDeserialize;
 
 import java.io.Serial;
 import java.io.Serializable;
@@ -9,37 +10,29 @@ import java.time.ZonedDateTime;
 
 @JsonDeserialize(as = JacksonBaseWxMpAccessToken.class)
 public interface WxAccessToken {
-    String getAccessToken();
 
-    ZonedDateTime getExpiresAt();
+    String accessToken();
+
+    ZonedDateTime expiresAt();
+
 }
 
-class JacksonBaseWxMpAccessToken implements WxAccessToken, Serializable {
+record JacksonBaseWxMpAccessToken(
+        String accessToken,
+        ZonedDateTime expiresAt
+) implements WxAccessToken, Serializable {
 
     @Serial
     private static final long serialVersionUID = 4363693927392313909L;
 
-    private final String accessToken;
-    private final ZonedDateTime expiresAt;
-
-
-    public JacksonBaseWxMpAccessToken(
+    @JsonCreator
+    JacksonBaseWxMpAccessToken(
             @JsonSetter("access_token") String accessToken,
-            @JsonSetter("expires_in") Long expiresIn
+            @JsonSetter("expires_in") Long expiresAt
     ) {
-        this.accessToken = accessToken;
-        this.expiresAt = ZonedDateTime.now().plusSeconds(expiresIn);
+        this(accessToken, ZonedDateTime.now().plusSeconds(expiresAt));
     }
 
-    @Override
-    public String getAccessToken() {
-        return accessToken;
-    }
-
-    @Override
-    public ZonedDateTime getExpiresAt() {
-        return expiresAt;
-    }
 }
 
 
