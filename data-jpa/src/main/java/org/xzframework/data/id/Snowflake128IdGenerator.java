@@ -4,7 +4,7 @@ import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 import java.util.UUID;
 
-public class Snowflake128IdGenerator {
+public class Snowflake128IdGenerator implements UuidGenerator {
 
     // ============================== 常量 ==============================
     /**
@@ -193,11 +193,6 @@ public class Snowflake128IdGenerator {
     public synchronized UUID nextUuid() {
         byte[] idBytes = nextId();
         return toUUID(idBytes);
-    }
-
-    // 获取当前时间戳与起始时间戳的差值，用于测试
-    public long getCurrentDeltaTime() {
-        return System.currentTimeMillis() - START_TIMESTAMP;
     }
 
 }
