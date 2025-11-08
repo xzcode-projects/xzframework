@@ -8,7 +8,7 @@ import java.io.Serializable;
 import java.util.Optional;
 
 @MappedSuperclass
-public abstract class AbstractAuditEntity<ID extends Serializable, UID extends Serializable> extends AbstractEntity<ID> {
+public abstract class AbstractAuditEntity<ID extends Serializable & Comparable<ID>, UID extends Serializable & Comparable<UID>> extends AbstractEntity<ID> {
 
     @Embedded
     @AttributeOverrides({
@@ -35,7 +35,6 @@ public abstract class AbstractAuditEntity<ID extends Serializable, UID extends S
             )
     })
     private Auditor<UID> lastModifiedBy;
-
 
     public Optional<Auditor<UID>> getCreatedBy() {
         return Optional.ofNullable(createdBy);

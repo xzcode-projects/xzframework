@@ -1,6 +1,7 @@
 package org.xzframework.data.jpa.domain;
 
 import jakarta.persistence.*;
+import org.jspecify.annotations.Nullable;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.domain.Persistable;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
@@ -11,7 +12,7 @@ import java.util.Objects;
 
 @MappedSuperclass
 @EntityListeners(AuditingEntityListener.class)
-public abstract class AbstractEntity<ID extends Serializable> implements Persistable<ID> {
+public abstract class AbstractEntity<ID extends Serializable & Comparable<ID>> implements Persistable<ID> {
 
     /**
      * 创建时间 <br>
@@ -29,7 +30,8 @@ public abstract class AbstractEntity<ID extends Serializable> implements Persist
     private ZonedDateTime lastModifiedTime = ZonedDateTime.now();
 
     @Override
-    abstract public ID getId();
+    @Nullable
+    public abstract ID getId();
 
     public ZonedDateTime getCreatedTime() {
         return createdTime;
