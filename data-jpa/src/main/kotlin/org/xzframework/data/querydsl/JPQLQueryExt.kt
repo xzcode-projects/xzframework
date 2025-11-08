@@ -5,9 +5,9 @@ import com.querydsl.core.types.dsl.Expressions
 import com.querydsl.core.types.dsl.PathBuilder
 import com.querydsl.core.types.dsl.PathBuilderFactory
 import com.querydsl.jpa.JPQLQuery
+import org.springframework.data.core.PropertyPath
 import org.springframework.data.domain.Pageable
 import org.springframework.data.domain.Sort
-import org.springframework.data.mapping.PropertyPath
 import org.springframework.data.querydsl.QSort
 import org.springframework.data.querydsl.QuerydslPredicateExecutor
 
