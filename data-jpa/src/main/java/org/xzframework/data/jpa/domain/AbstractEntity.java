@@ -49,7 +49,7 @@ public abstract class AbstractEntity<ID extends Serializable & Comparable<ID>> i
         return version;
     }
 
-    private void setVersion(Long version) {
+    protected void setVersion(Long version) {
         this.version = version;
     }
 
