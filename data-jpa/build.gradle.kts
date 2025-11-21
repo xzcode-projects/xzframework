@@ -15,10 +15,10 @@ dependencies {
     annotationProcessor("jakarta.persistence:jakarta.persistence-api:3.1.0")
 
     // 添加JUnit 5测试依赖
-    testImplementation("org.junit.jupiter:junit-jupiter-api:5.9.3")
-    testImplementation("org.junit.jupiter:junit-jupiter-params:5.9.3")
-    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.9.3")
-    testRuntimeOnly("org.junit.platform:junit-platform-launcher:1.9.3")
+    testImplementation("org.junit.jupiter:junit-jupiter-api:6.0.1")
+    testImplementation("org.junit.jupiter:junit-jupiter-params:6.0.1")
+    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:6.0.1")
+    testRuntimeOnly("org.junit.platform:junit-platform-launcher:6.0.1")
 }
 
 // 添加测试任务配置

@@ -1,5 +1,7 @@
 package org.xzframework.data.web;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 import org.springframework.core.MethodParameter;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -7,7 +9,6 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableHandlerMethodArgumentResolverSupport;
 import org.springframework.data.web.SortArgumentResolver;
 import org.springframework.data.web.SortHandlerMethodArgumentResolver;
-import org.springframework.lang.Nullable;
 import org.springframework.web.bind.support.WebDataBinderFactory;
 import org.springframework.web.context.request.NativeWebRequest;
 import org.springframework.web.method.support.ModelAndViewContainer;
@@ -48,7 +49,7 @@ public class RangePageableHandlerMethodArgumentResolver extends PageableHandlerM
     }
 
     @Override
-    public RangePageable<?> resolveArgument(MethodParameter methodParameter, ModelAndViewContainer mavContainer, NativeWebRequest webRequest, WebDataBinderFactory binderFactory) {
+    public RangePageable<?> resolveArgument(@NonNull MethodParameter methodParameter, @Nullable ModelAndViewContainer mavContainer, @NonNull NativeWebRequest webRequest, @Nullable WebDataBinderFactory binderFactory) {
         String page = webRequest.getParameter(getParameterNameToUse(getPageParameterName(), methodParameter));
         String pageSize = webRequest.getParameter(getParameterNameToUse(getSizeParameterName(), methodParameter));
         String max = webRequest.getParameter(getParameterNameToUse(getMaxParameterName(), methodParameter));
@@ -63,4 +64,5 @@ public class RangePageableHandlerMethodArgumentResolver extends PageableHandlerM
     private String getMaxParameterName() {
         return "max";
     }
+
 }

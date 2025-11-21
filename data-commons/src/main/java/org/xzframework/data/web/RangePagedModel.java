@@ -3,9 +3,10 @@ package org.xzframework.data.web;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.jetbrains.annotations.NotNull;
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.web.PagedModel;
-import org.springframework.lang.Nullable;
 
 import java.io.Serializable;
 import java.util.Iterator;
@@ -21,15 +22,15 @@ import java.util.function.Function;
  */
 public class RangePagedModel<T, M extends Comparable<?> & Serializable> implements Iterable<T> {
 
-    private final M max;
+    private final @Nullable M max;
 
-    private final Page<T> page;
+    private final @NonNull Page<T> page;
 
     public RangePagedModel() {
         this(null, Page.empty());
     }
 
-    public RangePagedModel(M max, Page<T> page) {
+    public RangePagedModel(@Nullable M max, @NonNull Page<T> page) {
         this.max = max;
         this.page = page;
     }
@@ -43,12 +44,12 @@ public class RangePagedModel<T, M extends Comparable<?> & Serializable> implemen
         return page.getContent();
     }
 
+    @Nullable
     @JsonProperty
     public M getMax() {
         return max;
     }
 
-    @Nullable
     @JsonProperty("page")
     public PagedModel.PageMetadata getMetadata() {
         return new PagedModel.PageMetadata(page.getSize(), page.getNumber(), page.getTotalElements(), page.getTotalPages());
@@ -76,4 +77,5 @@ public class RangePagedModel<T, M extends Comparable<?> & Serializable> implemen
     public Iterator<T> iterator() {
         return page.iterator();
     }
+
 }
