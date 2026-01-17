@@ -50,6 +50,11 @@ public class RangePagedModel<T, M extends Comparable<?> & Serializable> implemen
         return max;
     }
 
+    @JsonProperty("last")
+    public boolean isLast() {
+        return page.isLast();
+    }
+
     @JsonProperty("page")
     public PagedModel.PageMetadata getMetadata() {
         return new PagedModel.PageMetadata(page.getSize(), page.getNumber(), page.getTotalElements(), page.getTotalPages());
