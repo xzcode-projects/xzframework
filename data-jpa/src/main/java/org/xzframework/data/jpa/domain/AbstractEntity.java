@@ -1,6 +1,7 @@
 package org.xzframework.data.jpa.domain;
 
 import jakarta.persistence.*;
+import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.domain.Persistable;
@@ -33,23 +34,28 @@ public abstract class AbstractEntity<ID extends Serializable & Comparable<ID>> i
     @Nullable
     public abstract ID getId();
 
+    @NonNull
     public ZonedDateTime getCreatedTime() {
         return createdTime;
     }
 
+    @NonNull
     public ZonedDateTime getLastModifiedTime() {
         return lastModifiedTime;
     }
 
-    private void setLastModifiedTime(ZonedDateTime lastModifiedTime) {
+    private void setLastModifiedTime(
+            @NonNull ZonedDateTime lastModifiedTime
+    ) {
         this.lastModifiedTime = lastModifiedTime;
     }
 
+    @NonNull
     public Long getVersion() {
         return version;
     }
 
-    protected void setVersion(Long version) {
+    protected void setVersion(@NonNull Long version) {
         this.version = version;
     }
 
@@ -84,7 +90,7 @@ public abstract class AbstractEntity<ID extends Serializable & Comparable<ID>> i
      *
      * @param version 待检查的传入的版本号
      */
-    public void checkVersion(Long version) {
+    public void checkVersion(@NonNull Long version) {
         if (!Objects.equals(this.version, version)) {
             throw new OptimisticLockException("该资源在其它地方被修改");
         }

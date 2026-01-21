@@ -2,7 +2,6 @@ package org.xzframework.data.web;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import org.jetbrains.annotations.NotNull;
 import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
 import org.springframework.data.domain.Page;
@@ -40,6 +39,7 @@ public class RangePagedModel<T, M extends Comparable<?> & Serializable> implemen
     }
 
     @JsonProperty
+    @NonNull
     public List<T> getContent() {
         return page.getContent();
     }
@@ -72,11 +72,12 @@ public class RangePagedModel<T, M extends Comparable<?> & Serializable> implemen
         return Objects.hash(max, page);
     }
 
-    public <R> RangePagedModel<R, M> map(Function<T, R> convert) {
+    @NonNull
+    public <R> RangePagedModel<R, M> map(@NonNull Function<T, R> convert) {
         return new RangePagedModel<>(max, page.map(convert));
     }
 
-    @NotNull
+    @NonNull
     @Override
     @JsonIgnore
     public Iterator<T> iterator() {

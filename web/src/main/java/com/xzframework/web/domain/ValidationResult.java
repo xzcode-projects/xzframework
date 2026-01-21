@@ -2,6 +2,7 @@ package com.xzframework.web.domain;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
+import org.jspecify.annotations.NonNull;
 
 import java.io.Serial;
 import java.io.Serializable;
@@ -17,27 +18,32 @@ public class ValidationResult implements Serializable {
 
     private final String message;
 
-    private ValidationResult(boolean result, String message) {
+    private ValidationResult(boolean result, @NonNull String message) {
         this.success = result;
         this.message = message;
     }
 
+    @NonNull
     public static ValidationResult success() {
-        return new ValidationResult(true, null);
+        return new ValidationResult(true, "");
     }
 
+    @NonNull
     public static ValidationResult failure() {
-        return new ValidationResult(false, null);
+        return new ValidationResult(false, "");
     }
 
-    public static ValidationResult success(String message) {
+    @NonNull
+    public static ValidationResult success(@NonNull String message) {
         return new ValidationResult(true, message);
     }
 
-    public static ValidationResult failure(String message) {
+    @NonNull
+    public static ValidationResult failure(@NonNull String message) {
         return new ValidationResult(false, message);
     }
 
+    @NonNull
     public String getMessage() {
         return message;
     }
@@ -58,4 +64,5 @@ public class ValidationResult implements Serializable {
     public boolean isSuccess() {
         return success;
     }
+
 }

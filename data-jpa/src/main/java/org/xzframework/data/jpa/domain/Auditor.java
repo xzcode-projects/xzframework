@@ -1,5 +1,8 @@
 package org.xzframework.data.jpa.domain;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import java.io.Serial;
 import java.io.Serializable;
 import java.util.Objects;
@@ -13,28 +16,29 @@ public class Auditor<UID extends Serializable & Comparable<UID>> implements Seri
 
     private String username;
 
-    public Auditor(UID userid, String username) {
+    public Auditor(@NonNull UID userid, @NonNull String username) {
         this.userid = userid;
         this.username = username;
     }
 
     public Auditor() {
-        this(null, null);
     }
 
+    @Nullable
     public UID getUserid() {
         return userid;
     }
 
-    private void setUserid(UID userid) {
+    private void setUserid(@NonNull UID userid) {
         this.userid = userid;
     }
 
+    @Nullable
     public String getUsername() {
         return username;
     }
 
-    private void setUsername(String username) {
+    private void setUsername(@NonNull String username) {
         this.username = username;
     }
 

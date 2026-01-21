@@ -1,6 +1,7 @@
 package org.xzframework.data.jpa.domain;
 
 import jakarta.persistence.*;
+import org.jspecify.annotations.NonNull;
 import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.LastModifiedBy;
 
@@ -36,21 +37,23 @@ public abstract class AbstractAuditEntity<ID extends Serializable & Comparable<I
     })
     private Auditor<UID> lastModifiedBy;
 
+    @NonNull
     public Optional<Auditor<UID>> getCreatedBy() {
         return Optional.ofNullable(createdBy);
     }
 
     @CreatedBy
-    public void setCreatedBy(Auditor<UID> createdBy) {
+    public void setCreatedBy(@NonNull Auditor<UID> createdBy) {
         this.createdBy = createdBy;
     }
 
+    @NonNull
     public Optional<Auditor<UID>> getLastModifiedBy() {
         return Optional.ofNullable(lastModifiedBy);
     }
 
     @LastModifiedBy
-    public void setLastModifiedBy(Auditor<UID> lastModifiedBy) {
+    public void setLastModifiedBy(@NonNull Auditor<UID> lastModifiedBy) {
         this.lastModifiedBy = lastModifiedBy;
     }
 
