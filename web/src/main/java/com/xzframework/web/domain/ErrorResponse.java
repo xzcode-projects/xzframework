@@ -1,9 +1,11 @@
 package com.xzframework.web.domain;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import org.jspecify.annotations.NonNull;
 
 import java.time.ZonedDateTime;
 
+@JsonInclude(JsonInclude.Include.NON_EMPTY)
 public record ErrorResponse(int status, ZonedDateTime timestamp, String error, String message, String path) {
 
     public ErrorResponse() {
