@@ -24,7 +24,7 @@ public abstract class AbstractEntity<ID extends Serializable & Comparable<ID>> i
 
     @Version
     @Column(name = "version_", nullable = false)
-    private Long version = 0L;
+    private long version = 0L;
 
     @LastModifiedDate
     @Column(name = "last_modified_time_", nullable = false)
@@ -50,12 +50,11 @@ public abstract class AbstractEntity<ID extends Serializable & Comparable<ID>> i
         this.lastModifiedTime = lastModifiedTime;
     }
 
-    @NonNull
-    public Long getVersion() {
+    public long getVersion() {
         return version;
     }
 
-    protected void setVersion(@NonNull Long version) {
+    protected void setVersion(long version) {
         this.version = version;
     }
 
@@ -90,7 +89,7 @@ public abstract class AbstractEntity<ID extends Serializable & Comparable<ID>> i
      *
      * @param version 待检查的传入的版本号
      */
-    public void checkVersion(@NonNull Long version) {
+    public void checkVersion(long version) {
         if (!Objects.equals(this.version, version)) {
             throw new OptimisticLockException("该资源在其它地方被修改");
         }
