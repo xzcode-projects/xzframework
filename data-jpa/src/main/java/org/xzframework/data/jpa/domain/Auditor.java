@@ -1,5 +1,6 @@
 package org.xzframework.data.jpa.domain;
 
+import jakarta.persistence.Embeddable;
 import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
 
@@ -7,6 +8,7 @@ import java.io.Serial;
 import java.io.Serializable;
 import java.util.Objects;
 
+@Embeddable
 public class Auditor<UID extends Serializable & Comparable<UID>> implements Serializable {
 
     @Serial
