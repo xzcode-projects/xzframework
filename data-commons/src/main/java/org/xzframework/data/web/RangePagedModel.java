@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PagedModel;
 
 import java.io.Serializable;
@@ -36,6 +37,10 @@ public class RangePagedModel<T, M extends Comparable<?> & Serializable> implemen
 
     public static <T, M extends Comparable<?> & Serializable> RangePagedModel<T, M> empty() {
         return new RangePagedModel<>(null, Page.empty());
+    }
+
+    public static <T, M extends Comparable<?> & Serializable> RangePagedModel<T, M> empty(Pageable pageable) {
+        return new RangePagedModel<>(null, Page.empty(pageable));
     }
 
     @JsonProperty
