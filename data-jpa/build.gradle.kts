@@ -9,6 +9,7 @@ dependencies {
     compileOnly("jakarta.persistence:jakarta.persistence-api")
     compileOnly("com.querydsl:querydsl-core")
     compileOnly("org.jetbrains.kotlin:kotlin-stdlib")
+    compileOnly("org.hibernate.orm:hibernate-core")
     compileOnly("com.querydsl", "querydsl-jpa", "5.1.0", classifier = "jakarta")
 
     annotationProcessor("com.querydsl:querydsl-apt:5.1.0:jakarta")
