@@ -6,13 +6,11 @@ import com.fasterxml.jackson.databind.SerializerProvider;
 
 import java.io.IOException;
 
-
 public class LongToStringSerializer extends JsonSerializer<Long> {
+
     public static final LongToStringSerializer instance = new LongToStringSerializer();
 
-    //    private static final Long MAX_SAFE_INTEGER = 9007199254740991L;
     private static final long MAX_SAFE_LONG = 9000000000000000L;
-    //    private static final Long MIN_SAFE_INTEGER = -9007199254740991L;
     private static final long MIN_SAFE_LONG = -9000000000000000L;
 
     @Override
@@ -25,4 +23,5 @@ public class LongToStringSerializer extends JsonSerializer<Long> {
             gen.writeString(value.toString());
         }
     }
+
 }

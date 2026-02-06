@@ -6,6 +6,7 @@ repositories {
 plugins {
     `java-library`
     `maven-publish`
+    kotlin("jvm")
 }
 
 tasks {
@@ -14,10 +15,22 @@ tasks {
         useJUnitPlatform()
     }
 
+    kotlin {
+        jvmToolchain {
+            languageVersion = JavaLanguageVersion.of(17)
+            vendor = JvmVendorSpec.AMAZON
+        }
+    }
+
     java {
         compileJava {
             options.encoding = "UTF-8"
         }
+        toolchain {
+            languageVersion = JavaLanguageVersion.of(17)
+            vendor = JvmVendorSpec.AMAZON
+        }
+
         targetCompatibility = JavaVersion.VERSION_17
         sourceCompatibility = JavaVersion.VERSION_17
         withSourcesJar()

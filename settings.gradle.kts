@@ -15,6 +15,7 @@ include("security-web")
 include("security-config")
 include("sms")
 include("xzframework-dependencies")
+include("integration")
 
 pluginManagement {
     repositories {
@@ -26,8 +27,12 @@ pluginManagement {
         kotlin("kapt") version "1.9.25"
         kotlin("plugin.spring") version "1.9.25"
         kotlin("plugin.jpa") version "1.9.25"
-        id("org.hibernate.orm") version "6.6.29.Final"
-        id("org.springframework.boot") version "3.5.6"
+        id("org.hibernate.orm") version "6.6.41.Final"
+        id("org.springframework.boot") version "3.5.10"
         id("cz.habarta.typescript-generator") version "3.2.1263"
     }
+}
+
+plugins {
+    id("org.gradle.toolchains.foojay-resolver-convention").version("1.0.0")
 }

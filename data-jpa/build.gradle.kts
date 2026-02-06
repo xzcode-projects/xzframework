@@ -1,7 +1,6 @@
 group = "org.xzframework.data"
 plugins {
     id("java-conventions")
-    kotlin("jvm")
 }
 dependencies {
     api("org.springframework.data:spring-data-jpa")
@@ -14,3 +13,4 @@ dependencies {
     annotationProcessor("com.querydsl:querydsl-apt:5.1.0:jakarta")
     annotationProcessor("jakarta.persistence:jakarta.persistence-api:3.1.0")
 }
+
