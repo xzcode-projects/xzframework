@@ -1,3 +1,3 @@
 val versions = mapOf(
-    "spring_boot" to "4.0.2"
+    "spring_boot" to "4.0.3"
 )

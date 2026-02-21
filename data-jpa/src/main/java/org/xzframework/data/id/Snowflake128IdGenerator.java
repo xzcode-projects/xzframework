@@ -1,25 +1,30 @@
 package org.xzframework.data.id;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import java.net.InetAddress;
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 import java.util.UUID;
 
 public class Snowflake128IdGenerator implements UuidGenerator {
 
-    // ============================== 常量 ==============================
+    private static final Logger log = LoggerFactory.getLogger(Snowflake128IdGenerator.class);
     /**
      * 起始时间戳（2024-01-01 00:00:00，可自定义）
      */
     private final long START_TIMESTAMP = 1704067200000L;
 
-    // 位分配方案（总计128位）
-    // 高64位：0(符号位) + 41位时间戳 + 22位预留
-    // 低64位：10位数据中心ID + 10位机器ID + 44位序列号
-
+    // ============================== 常量 ==============================
     /**
      * 时间戳所占位数
      */
     private final long TIMESTAMP_BITS = 41L;
+
+    // 位分配方案（总计128位）
+    // 高64位：0(符号位) + 41位时间戳 + 22位预留
+    // 低64位：10位数据中心ID + 10位机器ID + 44位序列号
     /**
      * 数据中心ID所占位数
      */
@@ -36,7 +41,6 @@ public class Snowflake128IdGenerator implements UuidGenerator {
      * 高64位中的预留位所占位数
      */
     private final long HIGH_RESERVED_BITS = 22L;
-
     /**
      * 数据中心ID最大值（2^10 - 1）
      */
@@ -49,7 +53,6 @@ public class Snowflake128IdGenerator implements UuidGenerator {
      * 序列号最大值（2^44 - 1）
      */
     private final long MAX_SEQUENCE = ~(-1L << SEQUENCE_BITS);
-
     /**
      * 机器ID在低64位中的左移位数
      */
@@ -58,17 +61,16 @@ public class Snowflake128IdGenerator implements UuidGenerator {
      * 数据中心ID在低64位中的左移位数
      */
     private final long DATA_CENTER_ID_SHIFT = WORKER_ID_BITS + WORKER_ID_SHIFT;
-
-    // ============================== 变量 ==============================
     /**
      * 数据中心ID（0 ~ MAX_DATA_CENTER_ID）
      */
     private final long dataCenterId;
+
+    // ============================== 变量 ==============================
     /**
      * 机器ID（0 ~ MAX_WORKER_ID）
      */
     private final long workerId;
-
     /**
      * 序列号（0 ~ MAX_SEQUENCE）
      */
@@ -77,9 +79,6 @@ public class Snowflake128IdGenerator implements UuidGenerator {
      * 上次生成ID的时间戳
      */
     private long lastTimestamp = -1L;
-
-    // ============================== 构造函数 ==============================
-
     /**
      * 初始化生成器
      *
@@ -97,9 +96,22 @@ public class Snowflake128IdGenerator implements UuidGenerator {
         this.workerId = workerId;
     }
 
+    // ============================== 构造函数 ==============================
+
     // 简化构造函数，使用默认参数
     public Snowflake128IdGenerator() {
-        this(0, 0);
+        this(0, tryGetIpToWorkerId());
+    }
+
+    private static long tryGetIpToWorkerId() {
+        try {
+            String ip = InetAddress.getLocalHost().getHostAddress();
+            // 取 IP 最后一段作为 workerId（需确保不超范围）
+            return Integer.parseInt(ip.substring(ip.lastIndexOf('.') + 1));
+        } catch (Exception e) {
+            log.error("获取本地IP失败", e);
+            return 0;
+        }
     }
 
     // ============================== 核心方法 ==============================

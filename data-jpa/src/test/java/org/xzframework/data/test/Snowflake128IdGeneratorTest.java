@@ -103,14 +103,13 @@ public class Snowflake128IdGeneratorTest {
     @Test
     public void testIdUniqueness() {
         Snowflake128IdGenerator generator = new Snowflake128IdGenerator(1, 1);
-        Set<String> idSet = new HashSet<>();
+        Set<UUID> idSet = new HashSet<>();
         int count = 10000;
 
         for (int i = 0; i < count; i++) {
-            byte[] id = generator.nextId();
-            String idStr = convertByteArrayToString(id);
-            assertFalse(idSet.contains(idStr), "生成了重复的ID: " + idStr);
-            idSet.add(idStr);
+            UUID id = generator.nextUuid();
+            assertFalse(idSet.contains(id), "生成了重复的ID: " + id);
+            idSet.add(id);
         }
 
         assertEquals(count, idSet.size(), "生成的ID数量不正确");
