@@ -19,6 +19,7 @@ public class XzSafeNumberModule extends SimpleModule {
         addSerializer(BigDecimal.class, BigDecimalToStripTrailingZeroPlanStringSerializer.instance);
         addSerializer(BigInteger.class, BigIntegerToStringSerializer.instance);
         addSerializer(Long.class, LongToStringSerializer.instance);
+        // addDeserializer(ZonedDateTime.class, ZonedDateTimeDeserializer.instance);
     }
 
 }
