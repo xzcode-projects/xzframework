@@ -9,10 +9,10 @@ import java.math.BigDecimal;
 
 public class BigDecimalToStripTrailingZeroPlanStringSerializer extends StdSerializer<BigDecimal> {
 
-    public final static BigDecimalToStripTrailingZeroPlanStringSerializer instance = new BigDecimalToStripTrailingZeroPlanStringSerializer(BigDecimal.class);
+    public final static BigDecimalToStripTrailingZeroPlanStringSerializer INSTANCE = new BigDecimalToStripTrailingZeroPlanStringSerializer();
 
-    protected BigDecimalToStripTrailingZeroPlanStringSerializer(Class<?> t) {
-        super(t);
+    protected BigDecimalToStripTrailingZeroPlanStringSerializer() {
+        super(BigDecimal.class);
     }
 
     @Override

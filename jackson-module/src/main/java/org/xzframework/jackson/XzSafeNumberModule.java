@@ -16,9 +16,10 @@ public class XzSafeNumberModule extends SimpleModule {
         super(XzSafeNumberModule.class.getName(), PackageVersion.VERSION);
         // 不能在复写的setupModule调用super.setupModule(context)之后添加序列化器
         // 否则不生效
-        addSerializer(BigDecimal.class, BigDecimalToStripTrailingZeroPlanStringSerializer.instance);
-        addSerializer(BigInteger.class, BigIntegerToStringSerializer.instance);
-        addSerializer(Long.class, LongToStringSerializer.instance);
+        addSerializer(BigDecimal.class, BigDecimalToStripTrailingZeroPlanStringSerializer.INSTANCE);
+        addSerializer(BigInteger.class, BigIntegerToStringSerializer.INSTANCE);
+        addSerializer(Long.class, LongToStringSerializer.INSTANCE);
+        addSerializer(Long.TYPE, LongToStringSerializer.INSTANCE);
         // addDeserializer(ZonedDateTime.class, ZonedDateTimeDeserializer.instance);
     }
 

@@ -6,15 +6,15 @@ import tools.jackson.databind.ser.std.StdSerializer;
 
 public class LongToStringSerializer extends StdSerializer<Long> {
 
-    public static final LongToStringSerializer instance = new LongToStringSerializer(Long.class);
+    public static final LongToStringSerializer INSTANCE = new LongToStringSerializer();
 
     //    private static final Long MAX_SAFE_INTEGER = 9007199254740991L;
     private static final long MAX_SAFE_LONG = 9000000000000000L;
     //    private static final Long MIN_SAFE_INTEGER = -9007199254740991L;
     private static final long MIN_SAFE_LONG = -9000000000000000L;
 
-    protected LongToStringSerializer(Class<?> t) {
-        super(t);
+    protected LongToStringSerializer() {
+        super(Long.class);
     }
 
     @Override

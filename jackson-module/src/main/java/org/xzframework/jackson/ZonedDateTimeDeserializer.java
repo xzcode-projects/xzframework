@@ -9,10 +9,10 @@ import java.time.ZonedDateTime;
 
 public class ZonedDateTimeDeserializer extends StdDeserializer<ZonedDateTime> {
 
-    public static final ZonedDateTimeDeserializer instance = new ZonedDateTimeDeserializer(ZonedDateTime.class);
+    public static final ZonedDateTimeDeserializer instance = new ZonedDateTimeDeserializer();
 
-    protected ZonedDateTimeDeserializer(Class<?> vc) {
-        super(vc);
+    protected ZonedDateTimeDeserializer() {
+        super(ZonedDateTime.class);
     }
 
     @Override
