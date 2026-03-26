@@ -5,14 +5,13 @@ import org.springframework.aot.hint.RuntimeHintsRegistrar;
 import org.springframework.aot.hint.TypeReference;
 
 public class FrameworkRuntimeHintsRegistrar implements RuntimeHintsRegistrar {
+
     @Override
     public void registerHints(RuntimeHints hints, ClassLoader classLoader) {
         hints.reflection()
                 .registerType(TypeReference.of("kotlin.collections.EmptyList"))
                 .registerType(TypeReference.of("kotlin.collections.EmptyMap"))
-                .registerType(TypeReference.of("kotlin.collections.EmptySet"));
-        
-        hints.serialization()
+                .registerType(TypeReference.of("kotlin.collections.EmptySet"))
                 .registerType(TypeReference.of("java.util.Collections$SingletonList"))
                 .registerType(TypeReference.of("java.util.Collections$SingletonMap"))
                 .registerType(TypeReference.of("java.util.Collections$SingletonSet"))
@@ -33,4 +32,5 @@ public class FrameworkRuntimeHintsRegistrar implements RuntimeHintsRegistrar {
                 .registerType(TypeReference.of("java.util.Collections$CopiesList"))
         ;
     }
+
 }
