@@ -28,8 +28,8 @@ pluginManagement {
         kotlin("kapt") version "2.2.21"
         kotlin("plugin.spring") version "2.2.21"
         kotlin("plugin.jpa") version "2.2.21"
-        id("org.hibernate.orm") version "7.2.4.Final"
-        id("org.springframework.boot") version "4.0.5"
+        id("org.hibernate.orm") version "7.2.12.Final"
+        id("org.springframework.boot") version "4.0.6"
         id("cz.habarta.typescript-generator") version "3.2.1263"
     }
 }
