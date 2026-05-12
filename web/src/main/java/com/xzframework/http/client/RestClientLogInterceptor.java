@@ -44,8 +44,13 @@ public class RestClientLogInterceptor implements ClientHttpRequestInterceptor {
                 return response;
             }
 
-            log.debug("请求URL: [{}], 请求体: [{}], 响应状态: [{}], 响应体: [{}]",
-                    request.getURI(), new String(body, StandardCharsets.UTF_8), response.getStatusCode(), new String(responseBody, StandardCharsets.UTF_8));
+            log.debug(
+                    "请求URL: [{}],\r\n 请求体: [{}],\r\n 响应状态: [{}],\r\n 响应体: [{}]",
+                    request.getURI(),
+                    new String(body, StandardCharsets.UTF_8),
+                    response.getStatusCode(),
+                    new String(responseBody, StandardCharsets.UTF_8)
+            );
 
             return new ClientHttpResponse() {
 
