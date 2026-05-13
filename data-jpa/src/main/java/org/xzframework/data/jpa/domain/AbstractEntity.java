@@ -44,17 +44,11 @@ public abstract class AbstractEntity<ID extends Serializable & Comparable<ID>> i
         return lastModifiedTime;
     }
 
-    private void setLastModifiedTime(
-            @NonNull ZonedDateTime lastModifiedTime
-    ) {
-        this.lastModifiedTime = lastModifiedTime;
-    }
-
     public long getVersion() {
         return version;
     }
 
-    protected void setVersion(long version) {
+    public void setVersion(long version) {
         this.version = version;
     }
 
@@ -79,13 +73,14 @@ public abstract class AbstractEntity<ID extends Serializable & Comparable<ID>> i
      * <p>
      * 对实体进行版本检查
      * </p>
-     * 1.在某些情况下，用户A打开页面对数据data进行操作，并将数据停留在页面上。<br>
-     * 2.用户B打开页面,对data进行修改<br>
-     * 3.用户A提交数据<br>
-     * 4.用户B提交数据<br>
-     * 当用户A提交数据后，如果用户B尝试提交数据，用户B实际上修改的数据是用户A修改之前的版本，而不是数据最新的版本，因为它没有感知到用户A对数据的提交<br>
-     * hibernate的默认乐观锁实现仅仅在事务并发时才会生效。而我们需要的业务可能线程并没有并发，仅仅是人的并行编辑的动作，因此需要手动的对version进行检查<br>
-     * 这个检查不是必须的，由各个实体根据自身的业务需求而定
+     * <p>
+     * <strong>默认不用调用此方法</strong>，JPA 框架会在事务提交时自动进行乐观锁检查。
+     * 仅在特定场景下才需要手工调用，例如：
+     * <ul>
+     *   <li>需要执行大量耗时操作前，提前进行版本检查以避免无效计算</li>
+     *   <li>在非事务环境下需要手动控制版本验证时机</li>
+     * </ul>
+     * </p>
      *
      * @param version 待检查的传入的版本号
      */
