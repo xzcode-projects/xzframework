@@ -14,6 +14,7 @@ import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
+import java.util.UUID;
 
 /**
  * 日志拦截器，用于记录HTTP请求和响应的详细信息。<br/>
@@ -32,8 +33,11 @@ public class RestClientLogInterceptor implements ClientHttpRequestInterceptor {
             byte[] body,
             ClientHttpRequestExecution execution
     ) throws IOException {
-
         if (log.isDebugEnabled()) {
+            Long start = System.currentTimeMillis();
+            String requestId = UUID.randomUUID().toString();
+            String bodyString = new String(body, StandardCharsets.UTF_8);
+            log.debug("请求ID:[{}],\r\n,请求URL:[{}],\r\n请求体[{}]", requestId, request.getURI(), bodyString);
             ClientHttpResponse response = execution.execute(request, body);
             byte[] responseBody;
             try (InputStream bodyStream = response.getBody()) {
@@ -43,13 +47,14 @@ public class RestClientLogInterceptor implements ClientHttpRequestInterceptor {
                 // 继续执行，不影响主流程
                 return response;
             }
-
             log.debug(
-                    "请求URL: [{}],\r\n 请求体: [{}],\r\n 响应状态: [{}],\r\n 响应体: [{}]",
+                    "响应ID:[{}],\r\n,请求URL: [{}],\r\n 请求体: [{}],\r\n 响应状态: [{}],\r\n 响应体: [{}], 耗时: [{}ms]",
+                    requestId,
                     request.getURI(),
-                    new String(body, StandardCharsets.UTF_8),
+                    bodyString,
                     response.getStatusCode(),
-                    new String(responseBody, StandardCharsets.UTF_8)
+                    new String(responseBody, StandardCharsets.UTF_8),
+                    System.currentTimeMillis() - start
             );
 
             return new ClientHttpResponse() {
