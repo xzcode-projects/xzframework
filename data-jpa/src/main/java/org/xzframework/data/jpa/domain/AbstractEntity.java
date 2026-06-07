@@ -48,10 +48,6 @@ public abstract class AbstractEntity<ID extends Serializable & Comparable<ID>> i
         return version;
     }
 
-    public void setVersion(long version) {
-        this.version = version;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
