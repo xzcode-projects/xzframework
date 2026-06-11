@@ -1,0 +1,11 @@
+{
+  "type": "data-jpa",
+  "version": "1.0.0",
+  "reflection": [
+    {
+      "type": "org.xzframework.hibernate.SoftDeleteConverter",
+      "allPublicConstructors": true,
+      "allPublicMethods": true
+    }
+  ]
+}
