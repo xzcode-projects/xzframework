@@ -1,4 +1,4 @@
-package org.xzframework.hibernate;
+package org.xzframework.data.jpa;
 
 import jakarta.persistence.AttributeConverter;
 import jakarta.persistence.Converter;
