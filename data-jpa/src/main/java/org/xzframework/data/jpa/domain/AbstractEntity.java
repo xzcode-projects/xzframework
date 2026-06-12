@@ -13,7 +13,7 @@ import java.util.Objects;
 
 @MappedSuperclass
 @EntityListeners(AuditingEntityListener.class)
-public abstract class AbstractEntity<ID extends Serializable & Comparable<ID>> implements Persistable<ID> {
+public abstract class AbstractEntity<ID extends Serializable> implements Persistable<ID> {
 
     /**
      * 创建时间 <br>
