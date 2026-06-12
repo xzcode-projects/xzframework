@@ -63,13 +63,7 @@ public abstract class AbstractEntity<ID extends Serializable & Comparable<ID>> i
     @Override
     @Transient
     public boolean isNew() {
-        return isNew;
-    }
-
-    @PostLoad
-    @PostPersist
-    void updateIsNew() {
-        isNew = false;
+        return Objects.isNull(getId());
     }
 
     /**
