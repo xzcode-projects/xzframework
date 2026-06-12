@@ -9,7 +9,7 @@ import java.io.Serializable;
 import java.util.Optional;
 
 @MappedSuperclass
-public abstract class AbstractAuditEntity<ID extends Serializable & Comparable<ID>, UID extends Serializable & Comparable<UID>> extends AbstractEntity<ID> {
+public abstract class AbstractAuditEntity<ID extends Serializable, UID extends Serializable> extends AbstractEntity<ID> {
 
     @Embedded
     @AttributeOverrides({
