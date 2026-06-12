@@ -2,6 +2,7 @@ package org.xzframework.data.jpa.domain;
 
 import jakarta.persistence.*;
 import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.NullMarked;
 import org.jspecify.annotations.Nullable;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.domain.Persistable;
@@ -32,10 +33,6 @@ public abstract class AbstractEntity<ID extends Serializable & Comparable<ID>> i
 
     @Transient
     private boolean isNew = true;
-
-    @Override
-    @Nullable
-    public abstract ID getId();
 
     @NonNull
     public ZonedDateTime getCreatedTime() {

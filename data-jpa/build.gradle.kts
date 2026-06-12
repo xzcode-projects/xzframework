@@ -10,10 +10,9 @@ dependencies {
     compileOnly("com.querydsl:querydsl-core")
     compileOnly("org.jetbrains.kotlin:kotlin-stdlib")
     compileOnly("org.hibernate.orm:hibernate-core")
-    compileOnly("com.querydsl", "querydsl-jpa", "5.1.0", classifier = "jakarta")
+    compileOnly("io.github.openfeign.querydsl:querydsl-jpa:7.3.0")
 
-    annotationProcessor("com.querydsl:querydsl-apt:5.1.0:jakarta")
-    annotationProcessor("jakarta.persistence:jakarta.persistence-api:3.1.0")
+    annotationProcessor("io.github.openfeign.querydsl:querydsl-apt:7.3.0:jakarta")
 
     // 添加JUnit 5测试依赖
     testImplementation("org.junit.jupiter:junit-jupiter-api:6.0.1")
