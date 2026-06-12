@@ -13,7 +13,7 @@ import java.util.Objects;
 
 @MappedSuperclass
 @EntityListeners(AuditingEntityListener.class)
-public abstract class AbstractEntity<ID extends Serializable> implements Persistable<ID> {
+public abstract class AbstractEntity<ID extends Serializable & Comparable<ID>> implements Persistable<ID> {
 
     /**
      * 创建时间 <br>
@@ -29,6 +29,9 @@ public abstract class AbstractEntity<ID extends Serializable> implements Persist
     @LastModifiedDate
     @Column(name = "last_modified_time_", nullable = false)
     private ZonedDateTime lastModifiedTime = ZonedDateTime.now();
+
+    @Transient
+    private boolean isNew = true;
 
     @Override
     @Nullable
@@ -61,8 +64,15 @@ public abstract class AbstractEntity<ID extends Serializable> implements Persist
     }
 
     @Override
+    @Transient
     public boolean isNew() {
-        return Objects.isNull(getId());
+        return isNew;
+    }
+
+    @PostLoad
+    @PostPersist
+    void updateIsNew() {
+        isNew = false;
     }
 
     /**

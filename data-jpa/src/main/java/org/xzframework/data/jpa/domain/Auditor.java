@@ -8,8 +8,7 @@ import java.io.Serial;
 import java.io.Serializable;
 import java.util.Objects;
 
-@Embeddable
-public class Auditor<UID extends Serializable> implements Serializable {
+public class Auditor<UID extends Serializable & Comparable<UID>> implements Serializable {
 
     @Serial
     private static final long serialVersionUID = 7655207902942591166L;
@@ -23,7 +22,7 @@ public class Auditor<UID extends Serializable> implements Serializable {
         this.username = username;
     }
 
-    public Auditor() {
+    protected Auditor() {
     }
 
     @Nullable

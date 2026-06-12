@@ -4,12 +4,14 @@ import jakarta.persistence.*;
 import org.jspecify.annotations.NonNull;
 import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.LastModifiedBy;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.io.Serializable;
 import java.util.Optional;
 
 @MappedSuperclass
-public abstract class AbstractAuditEntity<ID extends Serializable, UID extends Serializable> extends AbstractEntity<ID> {
+@EntityListeners(AuditingEntityListener.class)
+public abstract class AbstractAuditEntity<ID extends Serializable & Comparable<ID>, UID extends Serializable & Comparable<UID>> extends AbstractEntity<ID> {
 
     @Column(name = "created_user_id_", updatable = false)
     private UID createdUserId;
@@ -24,18 +26,21 @@ public abstract class AbstractAuditEntity<ID extends Serializable, UID extends S
     private String lastModifiedUserName;
 
     @NonNull
+    @Transient
     public Optional<Auditor<UID>> getCreatedBy() {
         return Optional.ofNullable(createdUserId)
                 .map(uid -> new Auditor<>(uid, createdUserName));
     }
 
     @CreatedBy
+    @Transient
     public void setCreatedBy(@NonNull Auditor<UID> createdBy) {
         this.createdUserId = createdBy.getUserid();
         this.createdUserName = createdBy.getUsername();
     }
 
     @NonNull
+    @Transient
     public Optional<Auditor<UID>> getLastModifiedBy() {
         return Optional.ofNullable(lastModifiedUserId).map(
                 uid -> new Auditor<>(uid, lastModifiedUserName)
@@ -43,6 +48,7 @@ public abstract class AbstractAuditEntity<ID extends Serializable, UID extends S
     }
 
     @LastModifiedBy
+    @Transient
     public void setLastModifiedBy(@NonNull Auditor<UID> lastModifiedBy) {
         this.lastModifiedUserId = lastModifiedBy.getUserid();
         this.lastModifiedUserName = lastModifiedBy.getUsername();
