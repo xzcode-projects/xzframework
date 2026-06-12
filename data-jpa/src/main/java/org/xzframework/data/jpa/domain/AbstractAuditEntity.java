@@ -11,50 +11,41 @@ import java.util.Optional;
 @MappedSuperclass
 public abstract class AbstractAuditEntity<ID extends Serializable, UID extends Serializable> extends AbstractEntity<ID> {
 
-    @Embedded
-    @AttributeOverrides({
-            @AttributeOverride(
-                    name = "userid",
-                    column = @Column(name = "created_user_id_", updatable = false)
-            ),
-            @AttributeOverride(
-                    name = "username",
-                    column = @Column(name = "created_user_name_", updatable = false, length = 100)
-            )
-    })
-    private Auditor<UID> createdBy;
+    @Column(name = "created_user_id_", updatable = false)
+    private UID createdUserId;
 
-    @Embedded
-    @AttributeOverrides({
-            @AttributeOverride(
-                    name = "userid",
-                    column = @Column(name = "last_modified_user_id_")
-            ),
-            @AttributeOverride(
-                    name = "username",
-                    column = @Column(name = "last_modified_user_name_", length = 100)
-            )
-    })
-    private Auditor<UID> lastModifiedBy;
+    @Column(name = "last_modified_user_id_")
+    private UID lastModifiedUserId;
+
+    @Column(name = "created_user_name_", updatable = false, length = 100)
+    private String createdUserName;
+
+    @Column(name = "last_modified_user_name_", length = 100)
+    private String lastModifiedUserName;
 
     @NonNull
     public Optional<Auditor<UID>> getCreatedBy() {
-        return Optional.ofNullable(createdBy);
+        return Optional.ofNullable(createdUserId)
+                .map(uid -> new Auditor<>(uid, createdUserName));
     }
 
     @CreatedBy
     public void setCreatedBy(@NonNull Auditor<UID> createdBy) {
-        this.createdBy = createdBy;
+        this.createdUserId = createdBy.getUserid();
+        this.createdUserName = createdBy.getUsername();
     }
 
     @NonNull
     public Optional<Auditor<UID>> getLastModifiedBy() {
-        return Optional.ofNullable(lastModifiedBy);
+        return Optional.ofNullable(lastModifiedUserId).map(
+                uid -> new Auditor<>(uid, lastModifiedUserName)
+        );
     }
 
     @LastModifiedBy
     public void setLastModifiedBy(@NonNull Auditor<UID> lastModifiedBy) {
-        this.lastModifiedBy = lastModifiedBy;
+        this.lastModifiedUserId = lastModifiedBy.getUserid();
+        this.lastModifiedUserName = lastModifiedBy.getUsername();
     }
 
 }
