@@ -11,6 +11,9 @@ import java.util.Optional;
 @MappedSuperclass
 public abstract class AbstractAuditEntity<ID extends Serializable & Comparable<ID>, UID extends Serializable & Comparable<UID>> extends AbstractEntity<ID> {
 
+    /*
+     * spring data jpa audit 的created by 只支持字段。不能在setter里面做字段拆分
+     */
     @Embedded
     @AttributeOverrides({
             @AttributeOverride(
