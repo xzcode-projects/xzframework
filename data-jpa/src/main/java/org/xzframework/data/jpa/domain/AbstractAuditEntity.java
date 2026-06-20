@@ -26,21 +26,18 @@ public abstract class AbstractAuditEntity<ID extends Serializable & Comparable<I
     private String lastModifiedUserName;
 
     @NonNull
-    @Transient
     public Optional<Auditor<UID>> getCreatedBy() {
         return Optional.ofNullable(createdUserId)
                 .map(uid -> new Auditor<>(uid, createdUserName));
     }
 
     @CreatedBy
-    @Transient
     public void setCreatedBy(@NonNull Auditor<UID> createdBy) {
         this.createdUserId = createdBy.getUserid();
         this.createdUserName = createdBy.getUsername();
     }
 
     @NonNull
-    @Transient
     public Optional<Auditor<UID>> getLastModifiedBy() {
         return Optional.ofNullable(lastModifiedUserId).map(
                 uid -> new Auditor<>(uid, lastModifiedUserName)
@@ -48,7 +45,6 @@ public abstract class AbstractAuditEntity<ID extends Serializable & Comparable<I
     }
 
     @LastModifiedBy
-    @Transient
     public void setLastModifiedBy(@NonNull Auditor<UID> lastModifiedBy) {
         this.lastModifiedUserId = lastModifiedBy.getUserid();
         this.lastModifiedUserName = lastModifiedBy.getUsername();
