@@ -2,8 +2,6 @@ package org.xzframework.data.jpa.domain;
 
 import jakarta.persistence.*;
 import org.jspecify.annotations.NonNull;
-import org.jspecify.annotations.NullMarked;
-import org.jspecify.annotations.Nullable;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.domain.Persistable;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
@@ -30,9 +28,6 @@ public abstract class AbstractEntity<ID extends Serializable & Comparable<ID>> i
     @LastModifiedDate
     @Column(name = "last_modified_time_", nullable = false)
     private ZonedDateTime lastModifiedTime = ZonedDateTime.now();
-
-    @Transient
-    private boolean isNew = true;
 
     @NonNull
     public ZonedDateTime getCreatedTime() {

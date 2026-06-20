@@ -1,6 +1,8 @@
 package org.xzframework.data.jpa.domain;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Column;
+import jakarta.persistence.EntityListeners;
+import jakarta.persistence.MappedSuperclass;
 import org.jspecify.annotations.NonNull;
 import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.LastModifiedBy;
@@ -26,6 +28,7 @@ public abstract class AbstractAuditEntity<ID extends Serializable & Comparable<I
     private String lastModifiedUserName;
 
     @NonNull
+    @CreatedBy
     public Optional<Auditor<UID>> getCreatedBy() {
         return Optional.ofNullable(createdUserId)
                 .map(uid -> new Auditor<>(uid, createdUserName));
@@ -38,6 +41,7 @@ public abstract class AbstractAuditEntity<ID extends Serializable & Comparable<I
     }
 
     @NonNull
+    @LastModifiedBy
     public Optional<Auditor<UID>> getLastModifiedBy() {
         return Optional.ofNullable(lastModifiedUserId).map(
                 uid -> new Auditor<>(uid, lastModifiedUserName)
