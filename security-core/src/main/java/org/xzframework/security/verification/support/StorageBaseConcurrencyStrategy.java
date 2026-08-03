@@ -7,7 +7,6 @@ import org.xzframework.security.verification.DeviceInfo;
 import org.xzframework.security.verification.DeviceVerificationCodeStorage;
 
 import java.time.ZonedDateTime;
-import java.time.temporal.ChronoUnit;
 
 public class StorageBaseConcurrencyStrategy implements ConcurrencyStrategy {
     private final DeviceVerificationCodeStorage codeStorage;
@@ -21,7 +20,7 @@ public class StorageBaseConcurrencyStrategy implements ConcurrencyStrategy {
     public void tryLock(DeviceInfo device) {
         String deviceKey = device.getDeviceKey();
         codeStorage.findTopByKeyOrderByCreatedDateDesc(deviceKey)
-                .filter(it -> it.getCreatedTime().plus(1, ChronoUnit.MINUTES).isAfter(ZonedDateTime.now()))
+                .filter(it -> it.getCreatedTime().plusMinutes(1).isAfter(ZonedDateTime.now()))
                 .ifPresent(it -> {
                     throw new ConcurrencyException();
                 });

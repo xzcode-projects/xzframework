@@ -15,6 +15,8 @@ include("security-web")
 include("security-config")
 include("sms")
 include("xzframework-dependencies")
+include("jackson-module")
+include("integration")
 
 pluginManagement {
     repositories {
@@ -22,12 +24,12 @@ pluginManagement {
         gradlePluginPortal()
     }
     plugins {
-        kotlin("jvm") version "1.9.25"
-        kotlin("kapt") version "1.9.25"
-        kotlin("plugin.spring") version "1.9.25"
-        kotlin("plugin.jpa") version "1.9.25"
-        id("org.hibernate.orm") version "6.6.18.Final"
-        id("org.springframework.boot") version "3.5.3"
+        kotlin("jvm") version "2.3.21"
+        kotlin("kapt") version "2.3.21"
+        kotlin("plugin.spring") version "2.3.21"
+        kotlin("plugin.jpa") version "2.3.21"
+        id("org.hibernate.orm") version "7.4.1.Final"
+        id("org.springframework.boot") version "4.1.0"
         id("cz.habarta.typescript-generator") version "3.2.1263"
     }
 }

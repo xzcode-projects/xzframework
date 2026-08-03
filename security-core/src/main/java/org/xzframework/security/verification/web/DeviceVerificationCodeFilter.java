@@ -67,9 +67,9 @@ public class DeviceVerificationCodeFilter extends GenericFilterBean {
                             "path":"%s",
                             "error":"%s",
                             "message":"%s",
-                            "status":%d,                      
+                            "status":%d,
                             "timestamp":"%s"
-                        }                        
+                        }
                         """.formatted(request.getRequestURI(),
                         HttpStatus.FORBIDDEN.getReasonPhrase(),
                         "验证码输入错误",

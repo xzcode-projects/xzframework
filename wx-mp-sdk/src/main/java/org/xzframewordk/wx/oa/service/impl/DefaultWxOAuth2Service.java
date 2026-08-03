@@ -1,9 +1,9 @@
 package org.xzframewordk.wx.oa.service.impl;
 
-import org.xzframewordk.wx.oa.domain.WxMpOAuth2AccessToken;
-import org.xzframewordk.wx.domain.WxApp;
-import org.xzframewordk.wx.oa.service.WxMpOAuth2Service;
 import org.xzframewordk.wx.WxRequestExecutor;
+import org.xzframewordk.wx.domain.WxApp;
+import org.xzframewordk.wx.oa.domain.WxMpOAuth2AccessToken;
+import org.xzframewordk.wx.oa.service.WxMpOAuth2Service;
 
 import java.util.Collections;
 import java.util.Map;

@@ -1,18 +1,17 @@
 package org.xzframework.data.querydsl
 
-import com.querydsl.core.types.Expression
-import com.querydsl.core.types.Order
-import com.querydsl.core.types.OrderSpecifier
-import com.querydsl.core.types.Path
+import com.querydsl.core.types.*
 import com.querydsl.core.types.dsl.Expressions
 import com.querydsl.core.types.dsl.PathBuilder
 import com.querydsl.core.types.dsl.PathBuilderFactory
 import com.querydsl.jpa.JPQLQuery
+import org.springframework.data.core.PropertyPath
 import org.springframework.data.domain.Pageable
 import org.springframework.data.domain.Sort
-import org.springframework.data.mapping.PropertyPath
 import org.springframework.data.querydsl.QSort
+import org.springframework.data.querydsl.QuerydslPredicateExecutor
 
+fun <T : Any> QuerydslPredicateExecutor<T>.findOneOrNull(predicate: Predicate): T? = findOne(predicate).orElse(null)
 
 fun <T, P> JPQLQuery<T>.applyPagination(pageable: Pageable, clazz: Class<P>): JPQLQuery<T> {
     if (pageable.isUnpaged) {
@@ -50,7 +49,6 @@ private fun <T> addOrderByFrom(query: JPQLQuery<T>, qSort: QSort): JPQLQuery<T> 
     val orderSpecifiers = qSort.orderSpecifiers
     return query.orderBy(*orderSpecifiers.toTypedArray())
 }
-
 
 private fun toOrderSpecifier(order: Sort.Order, builder: PathBuilder<*>): OrderSpecifier<*> {
     return OrderSpecifier(

@@ -78,7 +78,7 @@ public class WxLoginConfigurer<H extends HttpSecurityBuilder<H>> extends
     }
 
     @Override
-    public void configure(H http) throws Exception {
+    public void configure(H http) {
         ApplicationContext context = http.getSharedObject(ApplicationContext.class);
         WxMpOAuth2Service wxOAuth2Service = context.getBean(WxMpOAuth2Service.class);
         WxOauth2AuthenticationProvider authenticationProvider;

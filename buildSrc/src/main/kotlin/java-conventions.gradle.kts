@@ -20,9 +20,6 @@ tasks {
         }
         targetCompatibility = JavaVersion.VERSION_17
         sourceCompatibility = JavaVersion.VERSION_17
-        toolchain {
-            languageVersion = JavaLanguageVersion.of(17)
-        }
         withSourcesJar()
     }
 }
@@ -46,7 +43,9 @@ publishing {
         pom.withXml {
             val root = asNode()
             val list = root["dependencyManagement"] as groovy.util.NodeList
-            list.forEach { root.remove(it as groovy.util.Node) }
+            list.forEach {
+                root.remove(it as groovy.util.Node)
+            }
         }
     }
 

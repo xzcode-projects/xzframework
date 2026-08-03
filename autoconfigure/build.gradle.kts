@@ -7,6 +7,7 @@ dependencies {
     compileOnly("org.springframework:spring-web")
     compileOnly("org.springframework:spring-webmvc")
     compileOnly("org.springframework:spring-webflux")
-    compileOnly("com.fasterxml.jackson.core:jackson-databind")
+    compileOnly("org.springframework.boot:spring-boot-jackson")
+    compileOnly(project(":jackson-module"))
     compileOnly(project(":data-commons"))
 }

@@ -2,10 +2,10 @@ package org.xzframewordk.wx;
 
 import org.xzframewordk.wx.domain.WxAccessToken;
 
-import java.util.Optional;
+import java.util.function.Function;
 
 public interface WxAccessTokenRepository {
-    WxAccessToken save(String appid, WxAccessToken accessToken);
 
-    Optional<WxAccessToken> findByAppid(String appid);
+    WxAccessToken computeIfAbsent(String appid, Function<String, WxAccessToken> mappingFunction);
+
 }

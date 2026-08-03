@@ -1,0 +1,9 @@
+{
+  "reflection": [
+    {
+      "type": "org.xzframework.data.jpa.SoftDeleteConverter",
+      "allPublicConstructors": true,
+      "allPublicMethods": true
+    }
+  ]
+}

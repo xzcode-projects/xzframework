@@ -29,7 +29,7 @@ public class DefaultMpQrCodeService implements MpQrCodeService {
         return requestExecutor.postForByte(
                 "https://api.weixin.qq.com/wxa/getwxacode?access_token={access_token}",
                 Collections.emptyMap(),
-                Map.of("access_token", accessToken.getAccessToken()),
+                Map.of("access_token", accessToken.accessToken()),
                 serializer.serialize(request)
         );
     }
@@ -40,8 +40,9 @@ public class DefaultMpQrCodeService implements MpQrCodeService {
         return requestExecutor.postForByte(
                 "https://api.weixin.qq.com/wxa/getwxacodeunlimit?access_token={access_token}",
                 Collections.emptyMap(),
-                Map.of("access_token", accessToken.getAccessToken()),
+                Map.of("access_token", accessToken.accessToken()),
                 serializer.serialize(request)
         );
     }
+
 }

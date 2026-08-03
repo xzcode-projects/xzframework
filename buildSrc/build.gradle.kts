@@ -3,17 +3,14 @@ plugins {
 }
 
 repositories {
+    maven("https://maven.aliyun.com/repository/public")
+    maven("https://maven.aliyun.com/repository/gradle-plugin")
     mavenCentral()
-}
-
-dependencies {
-    implementation(kotlin("script-runtime"))
+    gradlePluginPortal()
 }
 
 tasks {
-    java {
-        toolchain {
-            languageVersion = JavaLanguageVersion.of(17)
-        }
+    kotlin {
+        jvmToolchain(17)
     }
 }

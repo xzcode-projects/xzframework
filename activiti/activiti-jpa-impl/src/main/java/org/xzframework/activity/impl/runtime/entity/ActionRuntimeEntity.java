@@ -15,29 +15,24 @@ import java.util.Optional;
 @Table(name = "xz_activiti_runtime_action_")
 public class ActionRuntimeEntity extends AbstractEntity {
 
-
-    @Column(name = "name_")
-    private String name;
-
-
-    @ManyToOne
-    @JoinColumn(name = "step_id_")
-    private StepRuntimeEntity step;
-
-
-    @ManyToOne
-    @JoinColumn(name = "next_step_id_")
-    private StepRuntimeEntity nextStep;
-
-
     @ElementCollection
     @CollectionTable(name = "xz_activiti_runtime_action_user_")
     @AttributeOverrides({
             @AttributeOverride(name = "id_", column = @Column(name = "user_id_")),
             @AttributeOverride(name = "name", column = @Column(name = "user_name_", length = 50))
     })
-    private List<EmbeddedUser> users = new ArrayList<>();
+    private final List<EmbeddedUser> users = new ArrayList<>();
 
+    @Column(name = "name_")
+    private String name;
+
+    @ManyToOne
+    @JoinColumn(name = "step_id_")
+    private StepRuntimeEntity step;
+
+    @ManyToOne
+    @JoinColumn(name = "next_step_id_")
+    private StepRuntimeEntity nextStep;
 
     public List<User> getUsers() {
         return List.copyOf(users);

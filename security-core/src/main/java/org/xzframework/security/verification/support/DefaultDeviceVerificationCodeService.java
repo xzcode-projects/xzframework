@@ -1,7 +1,7 @@
 package org.xzframework.security.verification.support;
 
 import org.apache.commons.lang3.RandomStringUtils;
-import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.Strings;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.xzframework.security.verification.*;
@@ -29,7 +29,8 @@ public class DefaultDeviceVerificationCodeService implements DeviceVerificationC
     public DeviceVerificationCode create(DeviceInfo device) {
         String deviceKey = device.getDeviceKey();
         concurrencyStrategy.tryLock(device);
-        DeviceVerificationCode generatedCode = new DeviceVerificationCode(deviceKey, RandomStringUtils.random(6, "0123456789"));
+        RandomStringUtils.secure().nextNumeric(10);
+        DeviceVerificationCode generatedCode = new DeviceVerificationCode(deviceKey, RandomStringUtils.secure().next(6, "0123456789"));
         log.debug("create a new DeviceVerificationCode [{}]", generatedCode);
         return codeStorage.save(generatedCode);
     }
@@ -38,13 +39,14 @@ public class DefaultDeviceVerificationCodeService implements DeviceVerificationC
     public boolean validate(String verifyId, String key, String verifyCode) {
         boolean result = codeStorage.findById(verifyId)
                 .map(savedItem -> ZonedDateTime.now().isBefore(savedItem.getExpireAt())
-                        && StringUtils.equals(key, savedItem.getKey())
-                        && StringUtils.equalsIgnoreCase(verifyCode, savedItem.getCode()))
+                        && Strings.CS.equals(key, savedItem.getKey())
+                        && Strings.CI.equals(verifyCode, savedItem.getCode()))
                 .orElse(false);
         if (result) {
             codeStorage.remove(verifyId);
         }
         return result;
     }
+
 }
 

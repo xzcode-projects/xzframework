@@ -1,5 +1,6 @@
 package org.xzframework.data.domain;
 
+import org.jspecify.annotations.NonNull;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -27,11 +28,13 @@ public class RangePageRequest<T extends Serializable> extends PageRequest implem
         this.max = max;
     }
 
-    public static <T extends Serializable> RangePageable<T> of(int page, int size, Sort sort, T max) {
+    @NonNull
+    public static <T extends Serializable> RangePageable<T> of(int page, int size, @NonNull Sort sort, @NonNull T max) {
         return new RangePageRequest<>(page, size, sort, max);
     }
 
-    public static <T extends Serializable> RangePageable<T> of(Pageable pageable, T max) {
+    @NonNull
+    public static <T extends Serializable> RangePageable<T> of(Pageable pageable, @NonNull T max) {
         return new RangePageRequest<>(pageable.getPageNumber(),
                 pageable.getPageSize(),
                 pageable.getSort(),
@@ -43,4 +46,5 @@ public class RangePageRequest<T extends Serializable> extends PageRequest implem
     public Optional<T> getMax() {
         return Optional.ofNullable(max);
     }
+
 }

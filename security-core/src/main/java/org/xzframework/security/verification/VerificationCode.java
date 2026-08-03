@@ -6,7 +6,13 @@ import java.io.Serial;
 import java.io.Serializable;
 import java.time.ZonedDateTime;
 
-public class VerificationCode implements Serializable {
+public record VerificationCode(
+        String id,
+        @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+        String code,
+        ZonedDateTime invalidateTime,
+        String imgData
+) implements Serializable {
 
     @Serial
     private static final long serialVersionUID = -6060058106901443139L;
@@ -16,21 +22,6 @@ public class VerificationCode implements Serializable {
      */
     private static final int DEFAULT_INVALIDATE_TIME = 5;
 
-    private final String id;
-
-    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
-    private final String code;
-
-    private final ZonedDateTime invalidateTime;
-
-    private final String imgData;
-
-    public VerificationCode(String id, String code, ZonedDateTime invalidateTime, String imgData) {
-        this.id = id;
-        this.code = code;
-        this.invalidateTime = invalidateTime;
-        this.imgData = imgData;
-    }
 
     public VerificationCode(String id,
                             String code,
@@ -41,23 +32,7 @@ public class VerificationCode implements Serializable {
     public VerificationCode(String id, String code) {
         this(id, code, null);
     }
-
-    public String getId() {
-        return id;
-    }
-
-    public String getCode() {
-        return code;
-    }
-
-    public ZonedDateTime getInvalidateTime() {
-        return invalidateTime;
-    }
-
-    public String getImgData() {
-        return imgData;
-    }
-
+ 
     public VerificationCode withImageData(String imgData) {
         return new VerificationCode(
                 this.id,

@@ -4,6 +4,8 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.Strings;
+import org.jetbrains.annotations.NotNull;
 import org.springframework.http.MediaType;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
@@ -16,18 +18,17 @@ import java.util.function.Function;
 import java.util.function.Supplier;
 
 public class WxCodeAuthenticationProcessingFilter extends AbstractAuthenticationProcessingFilter {
+
     private final WxOAuth2StateRepository stateRepository = new SessionWxOAuth2StateRepository();
     private final MediaTypeRequestMatcher jsonRequestMatcher = new MediaTypeRequestMatcher(MediaType.APPLICATION_JSON);
     private Function<HttpServletRequest, String> redirectUrlBuilder;
     private Supplier<String> appidResolver;
-
 
     public WxCodeAuthenticationProcessingFilter(Supplier<String> appidResolver, Function<HttpServletRequest, String> redirectUrlBuilder) {
         super("/login/wx/code");
         this.appidResolver = appidResolver;
         this.redirectUrlBuilder = redirectUrlBuilder;
     }
-
 
     public WxCodeAuthenticationProcessingFilter(Supplier<String> appidResolver) {
         this(appidResolver, request -> {
@@ -50,7 +51,7 @@ public class WxCodeAuthenticationProcessingFilter extends AbstractAuthentication
     }
 
     @Override
-    public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response)
+    public Authentication attemptAuthentication(HttpServletRequest request, @NotNull HttpServletResponse response)
             throws AuthenticationException, IOException {
         String code = request.getParameter("code");
         String state = request.getParameter("state");
@@ -64,17 +65,16 @@ public class WxCodeAuthenticationProcessingFilter extends AbstractAuthentication
             return null;
         }
         String savedState = stateRepository.get(request);
-        if (!StringUtils.equals(savedState, state)) {
+        if (!Strings.CS.equals(savedState, state)) {
             throw new StateValidationFailureException("the give state not equals to request state");
         }
         return this.getAuthenticationManager().authenticate(new WxOAuth2CodeAuthentication(code));
     }
 
-
     private String buildRedirect(HttpServletRequest request) {
-        String state = RandomStringUtils.randomAlphabetic(6);
+        String state = RandomStringUtils.secure().nextNumeric(6);
         stateRepository.save(request, state);
-        UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl("https://open.weixin.qq.com/connect/oauth2/authorize");
+        UriComponentsBuilder builder = UriComponentsBuilder.fromUriString("https://open.weixin.qq.com/connect/oauth2/authorize");
         builder.queryParam("appid", appidResolver.get());
         builder.queryParam("redirect_uri", redirectUrlBuilder.apply(request));
         builder.queryParam("response_type", "code");
@@ -83,5 +83,6 @@ public class WxCodeAuthenticationProcessingFilter extends AbstractAuthentication
         builder.fragment("wechat_redirect");
         return builder.toUriString();
     }
+
 }
 

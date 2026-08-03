@@ -12,12 +12,12 @@ public abstract class RequestUtils {
     private static final RequestMatcher jsonRequestMatcher;
 
     static {
-        MediaTypeRequestMatcher c = new MediaTypeRequestMatcher(
+        MediaTypeRequestMatcher matcher = new MediaTypeRequestMatcher(
                 MediaType.APPLICATION_JSON,
                 MediaType.TEXT_PLAIN
         );
-        c.setIgnoredMediaTypes(Set.of(MediaType.ALL));
-        jsonRequestMatcher = c;
+        matcher.setIgnoredMediaTypes(Set.of(MediaType.ALL));
+        jsonRequestMatcher = matcher;
     }
 
     public static boolean isJsonRequest(final HttpServletRequest request) {
