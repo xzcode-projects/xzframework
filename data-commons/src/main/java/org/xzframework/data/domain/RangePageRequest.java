@@ -48,7 +48,7 @@ public class RangePageRequest<T extends Serializable> extends PageRequest implem
         return new RangePageRequest<>(
                 pageable.getPageNumber(),
                 pageable.getPageSize(),
-                Sort.unsorted(),
+                pageable.getSort(),
                 null
         );
     }
