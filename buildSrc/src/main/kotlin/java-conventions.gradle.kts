@@ -9,7 +9,6 @@ plugins {
 }
 
 tasks {
-
     test {
         useJUnitPlatform()
     }
@@ -17,6 +16,9 @@ tasks {
     java {
         compileJava {
             options.encoding = "UTF-8"
+        }
+        toolchain {
+            languageVersion = JavaLanguageVersion.of(17)
         }
         targetCompatibility = JavaVersion.VERSION_17
         sourceCompatibility = JavaVersion.VERSION_17
