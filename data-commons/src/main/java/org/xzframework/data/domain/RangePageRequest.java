@@ -44,7 +44,7 @@ public class RangePageRequest<T extends Serializable> extends PageRequest implem
 
 
     @NonNull
-    public static <T extends Serializable> RangePageRequest<T> of(Pageable pageable) {
+    public static <T extends Serializable> RangePageable<T> of(Pageable pageable) {
         return new RangePageRequest<>(
                 pageable.getPageNumber(),
                 pageable.getPageSize(),
