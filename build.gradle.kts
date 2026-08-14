@@ -1,3 +1,3 @@
 allprojects {
-    version = "3.5.10-SNAPSHOT"
+    version = "3.5.16-SNAPSHOT"
 }
