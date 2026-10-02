@@ -10,3 +10,7 @@ dependencies {
     compileOnly("org.springframework:spring-web")
     compileOnly("org.springframework:spring-webflux")
 }
+// 添加测试任务配置
+tasks.test {
+    useJUnitPlatform()
+}

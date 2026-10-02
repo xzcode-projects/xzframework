@@ -10,7 +10,7 @@ package org.xzframework.data.id;
  * - 5位机器ID：每个数据中心最多支持32台机器
  * - 12位序列号：每毫秒最多生成4096个ID
  */
-public class SnowflakeIdGenerator {
+public class SnowflakeIdGenerator implements LongIdGenerator {
 
     // 开始时间戳 (2020-01-01 00:00:00)
     private static final long START_TIMESTAMP = 1577836800000L;
@@ -49,7 +49,7 @@ public class SnowflakeIdGenerator {
      * 构造函数
      *
      * @param datacenterId 数据中心ID，范围0-31
-     * @param machineId 机器ID，范围0-31
+     * @param machineId    机器ID，范围0-31
      */
     public SnowflakeIdGenerator(long datacenterId, long machineId) {
         if (datacenterId < 0 || datacenterId > MAX_DATACENTER_ID) {
@@ -82,6 +82,7 @@ public class SnowflakeIdGenerator {
      *
      * @return 生成的ID
      */
+    @Override
     public synchronized long nextId() {
         long timestamp = System.currentTimeMillis();
 
