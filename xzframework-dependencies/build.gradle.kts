@@ -27,6 +27,7 @@ dependencies {
         api(project(":sms"))
         api(project(":integration"))
         api(project(":jackson-module"))
+        api(project(":kotlin-ext"))
     }
 }
 
