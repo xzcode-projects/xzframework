@@ -17,6 +17,7 @@ include("sms")
 include("xzframework-dependencies")
 include("jackson-module")
 include("integration")
+include("kotlin-ext")
 
 pluginManagement {
     repositories {
@@ -28,8 +29,8 @@ pluginManagement {
         kotlin("kapt") version "2.3.21"
         kotlin("plugin.spring") version "2.3.21"
         kotlin("plugin.jpa") version "2.3.21"
-        id("org.hibernate.orm") version "7.4.1.Final"
-        id("org.springframework.boot") version "4.1.1"
+        id("org.hibernate.orm") version "7.4.13.Final"
+        id("org.springframework.boot") version "4.1.2"
         id("cz.habarta.typescript-generator") version "3.2.1263"
     }
 }
