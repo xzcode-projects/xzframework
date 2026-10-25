@@ -31,7 +31,7 @@ public abstract class AbstractEntity<ID extends Serializable & Comparable<ID>> i
     private ZonedDateTime lastModifiedTime = ZonedDateTime.now();
 
     @Transient
-    private boolean isNew;
+    private boolean isNew = true;
 
     @NonNull
     public ZonedDateTime getCreatedTime() {
