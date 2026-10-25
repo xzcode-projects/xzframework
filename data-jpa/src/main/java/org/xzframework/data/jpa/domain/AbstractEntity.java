@@ -25,9 +25,13 @@ public abstract class AbstractEntity<ID extends Serializable & Comparable<ID>> i
     @Column(name = "version_", nullable = false)
     private long version = 0L;
 
+
     @LastModifiedDate
     @Column(name = "last_modified_time_", nullable = false)
     private ZonedDateTime lastModifiedTime = ZonedDateTime.now();
+
+    @Transient
+    private boolean isNew;
 
     @NonNull
     public ZonedDateTime getCreatedTime() {
@@ -58,7 +62,7 @@ public abstract class AbstractEntity<ID extends Serializable & Comparable<ID>> i
     @Override
     @Transient
     public boolean isNew() {
-        return Objects.isNull(getId());
+        return isNew;
     }
 
     /**
@@ -80,6 +84,13 @@ public abstract class AbstractEntity<ID extends Serializable & Comparable<ID>> i
         if (!Objects.equals(this.version, version)) {
             throw new OptimisticLockException("该资源在其它地方被修改");
         }
+    }
+
+
+    @PostPersist
+    @PostLoad
+    void markNotNew() {
+        this.isNew = false;
     }
 
 }
